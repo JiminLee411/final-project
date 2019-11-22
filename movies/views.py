@@ -4,7 +4,7 @@ from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
 from .forms import ReviewForm
 # from django.contrib import messages
-
+#  뷰를 보세요
 # Create your views here.
 def movies_index(request):
     movies = Movie.objects.all()
