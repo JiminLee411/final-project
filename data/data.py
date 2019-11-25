@@ -5,25 +5,44 @@ import pprint
 
 api_key = config('API_KEY')
 
-with open('boxoffice.csv', 'w', encoding='utf-8', newline='') as f:
+movieList = []
+movieDict = {}
+
+# boxoffice
+for page in range(1,36):
+    # 인기순
+    api_url = f'https://api.themoviedb.org/3/movie/popular?api_key={api_key}&language=ko-KR&page={page}'
+    response = requests.get(api_url).json()
+    # 평점순
+    api_url2 = f'https://api.themoviedb.org/3/movie/top_rated?api_key={api_key}&language=ko-KR&page={page}'
+    response2 = requests.get(api_url2).json()
+
+    for movie in range(20):
+        popularInfo = response['results'][movie]
+        topRateInfo = response2['results'][movie]
+
+        if popularInfo['id'] not in movieList:
+            movieList.append(popularInfo['id'])
+            movieDict[popularInfo['id']] = {
+                'movie_id': popularInfo['id'],
+                'movie_title': popularInfo['title']
+            }
+        
+        if topRateInfo['id'] not in movieList:
+            movieList.append(topRateInfo['id'])
+            movieDict[topRateInfo['id']] = {
+                'movie_id': topRateInfo['id'],
+                'movie_title': topRateInfo['title']
+            }
+
+with open('data/boxoffice.csv', 'w', encoding='utf-8', newline='') as f:
     fieldnames = ('movie_id', 'movie_title',)
     csv_writer = csv.DictWriter(f, fieldnames=fieldnames)
     csv_writer.writeheader()
-    movieList = []
-    movieKoTitle = []
-    for page in range(1,450):
-        api_url = f'https://api.themoviedb.org/3/movie/popular?api_key={api_key}&language=ko-KR&page={page}'
-        response = requests.get(api_url).json()
+    
+    for item in movieDict.values():
+        csv_writer.writerow(item)
 
-        for movie in range(20):
-            infos = response['results'][movie]
-            if infos['id'] not in movieList:
-                movieList.append(infos['id'])
-                movieKoTitle.append([infos['id'], infos['title']])
-                csv_writer.writerow({
-                                    'movie_id': infos['id'],
-                                    'movie_title': infos['title']
-                                    })
 
 # movie detail data
 movieInfos = {}
@@ -93,23 +112,28 @@ for movie in range(len(movieList)):
     for imgIndex in range(val):
         movieInfos[movieList[movie]][f'file_path_{imgIndex+1}'] = imgInfo[imgIndex]['file_path']
 
-with open('movie.csv', 'w', encoding='utf-8', newline='') as f:
+with open('data/movie.csv', 'w', encoding='utf-8', newline='') as f:
     fieldnames = ('id','adult', 'budget', 'genres', 'original_title', 'overview', 'popularity', 'poster_path', 'release_date', 'revenue', 'runtime', 'tagline', 'title', 'vote_average', 'actor_1', 'actor_2', 'actor_3', 'actor_4', 'actor_5', 'director', 'file_path_1', 'file_path_2', 'file_path_3')
     csv_writer = csv.DictWriter(f, fieldnames=fieldnames)
     csv_writer.writeheader()
     for item in movieInfos.values():
         csv_writer.writerow(item)
 
+
 # genre Information
+id = 0
 for genreIndex in range(19):
     api_url = f'https://api.themoviedb.org/3/genre/movie/list?api_key={api_key}&language=ko-KR'
     response = requests.get(api_url).json()
     genreInfo = response['genres'][genreIndex]
     movieGenres[genreInfo['id']] = {
+        'id': id,
         'name': genreInfo['name'],
         'genre_id': genreInfo['id']
     }
-with open('genres.csv', 'w', encoding='utf-8', newline='') as f:
+    id += 1
+
+with open('data/genres.csv', 'w', encoding='utf-8', newline='') as f:
     fieldnames = ('id','name','genre_id')
     csv_writer = csv.DictWriter(f, fieldnames=fieldnames)
     csv_writer.writeheader()
@@ -117,7 +141,7 @@ with open('genres.csv', 'w', encoding='utf-8', newline='') as f:
         csv_writer.writerow(item)
 
 # Actor list
-with open('actor_list.csv', 'w', encoding='utf-8', newline='') as f:
+with open('data/actor_list.csv', 'w', encoding='utf-8', newline='') as f:
     fieldnames = ('id','actor_id','actor_name')
     writer = csv.DictWriter(f, fieldnames=fieldnames)
     writer.writeheader()
