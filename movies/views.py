@@ -7,8 +7,13 @@ from django.contrib import messages
 # Create your views here.
 def movies_index(request):
     movies = Movie.objects.all()
+    genres = Genre.objects.all()
+    keyword = request.GET.get('keyword', '')
+    if keyword:
+        movies = movies.filter(title__icontains=keyword)
     context = {
-        'movies' : movies
+        'movies' : movies,
+        'genres' : genres,
     }
     return render(request, 'movies/movies_index.html', context)
 
@@ -34,8 +39,7 @@ def review_create(request, movie_pk):
         messages.warning(request, '로그인이 필요합니다.')
     return redirect('movies:movies_detail', movie_pk)
 
-
-def review_delete(request, review_pk):
+def review_delete(request, movie_pk, review_pk):
     review = get_object_or_404(Review, pk=review_pk)
     review.delete()
     messages.warning(request, '리뷰가 삭제되었습니다.')
