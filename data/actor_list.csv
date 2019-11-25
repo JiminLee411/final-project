@@ -4,97 +4,197 @@ id,actor_id,actor_name
 3,221611,Jonathan Groff
 4,54415,Josh Gad
 5,1225953,Sterling K. Brown
-6,1136406,Tom Holland
-7,131,Jake Gyllenhaal
-8,505710,Zendaya
-9,15277,Jon Favreau
-10,2231,Samuel L. Jackson
-11,73421,Joaquin Phoenix
-12,380,Robert De Niro
-13,1545693,Zazie Beetz
-14,4432,Frances Conroy
-15,16841,Brett Cullen
-16,6193,Leonardo DiCaprio
-17,287,Brad Pitt
-18,234352,Margot Robbie
-19,46593,Emile Hirsch
-20,1392137,Margaret Qualley
-21,119589,Donald Glover
-22,14386,Beyoncé Knowles
-23,15152,James Earl Jones
-24,5294,Chiwetel Ejiofor
-25,1981,Alfre Woodard
-26,2450298,Grant Martin
-27,2450299,Michelle Medoff
-28,2450300,Jack William
-29,2450301,Josiah Authier
-30,1596934,Natalia Reyes
-31,1110405,Mackenzie Davis
-32,2713,Linda Hamilton
-33,111016,Gabriel Luna
-34,1100,Arnold Schwarzenegger
-35,5530,James McAvoy
-36,83002,Jessica Chastain
-37,19278,Bill Hader
-38,5296,James Ransone
-39,223901,Jay Ryan
-40,65510,Mayumi Tanaka
-41,84507,Kazuya Nakai
-42,90133,Akemi Okamura
-43,68472,Kappei Yamaguchi
-44,84505,Hiroaki Hirata
-45,2888,Will Smith
-46,17628,Mary Elizabeth Winstead
-47,2296,Clive Owen
-48,30082,Benedict Wong
-49,58643,Linda Emond
-50,16483,Sylvester Stallone
-51,543530,Dave Bautista
-52,5915,Jaime King
-53,21354,Russell Wong
-54,1614437,Danni Wang
-55,17276,Gerard Butler
-56,192,Morgan Freeman
-57,9575,Jada Pinkett Smith
-58,129101,Lance Reddick
-59,1462,Tim Blake Nelson
-60,887,Owen Wilson
-61,3636,Paul Newman
-62,5149,Bonnie Hunt
-63,15897,Larry the Cable Guy
-64,4252,Tony Shalhoub
-65,56734,Chloë Grace Moretz
-66,237455,Sam Claflin
-67,11150,Gina Gershon
-68,161932,Jim Rash
-69,9657,Patrick Warburton
-70,37917,Kristen Stewart
-71,240724,Naomi Scott
-72,2092879,Ella Balinska
-73,9281,Elizabeth Banks
-74,17243,Jonathan Tucker
-75,1892,Matt Damon
-76,3894,Christian Bale
-77,19498,Jon Bernthal
-78,72638,Tracy Letts
-79,147056,Caitriona Balfe
-80,67599,Vanessa Hudgens
-81,1711290,Josh Whitehouse
-82,59192,Emmanuelle Chriqui
-83,1510971,Harry Jarvis
-84,1225784,Ella Kenion
-85,18918,Dwayne Johnson
-86,976,Jason Statham
-87,17605,Idris Elba
-88,556356,Vanessa Kirby
-89,1222992,Eiza González
-90,1341,Donnie Yen
-91,83633,Vanness Wu
-92,78110,Scott Adkins
-93,1173223,Danny Chan Kwok-Kwan
-94,1800792,Wu Yue
-95,1515478,Mena Massoud
-96,240724,Naomi Scott
-97,2888,Will Smith
-98,935235,Marwan Kenzari
-99,103330,Navid Negahban
+6,35742,Shah Rukh Khan
+7,55061,Kajol
+8,691,Amrish Puri
+9,6217,Anupam Kher
+10,35759,Satish Shah
+11,1136406,Tom Holland
+12,131,Jake Gyllenhaal
+13,505710,Zendaya
+14,15277,Jon Favreau
+15,2231,Samuel L. Jackson
+16,504,Tim Robbins
+17,192,Morgan Freeman
+18,4029,Bob Gunton
+19,6574,Clancy Brown
+20,6576,Mark Rolston
+21,73421,Joaquin Phoenix
+22,380,Robert De Niro
+23,1545693,Zazie Beetz
+24,4432,Frances Conroy
+25,16841,Brett Cullen
+26,3084,Marlon Brando
+27,1158,Al Pacino
+28,3085,James Caan
+29,3086,Richard S. Castellano
+30,3087,Robert Duvall
+31,6193,Leonardo DiCaprio
+32,287,Brad Pitt
+33,234352,Margot Robbie
+34,46593,Emile Hirsch
+35,1392137,Margaret Qualley
+36,3896,Liam Neeson
+37,2282,Ben Kingsley
+38,5469,Ralph Fiennes
+39,6692,Caroline Goodall
+40,6693,Jonathan Sagall
+41,119589,Donald Glover
+42,14386,Beyoncé Knowles
+43,15152,James Earl Jones
+44,5294,Chiwetel Ejiofor
+45,1981,Alfre Woodard
+46,20738,Song Kang-ho
+47,115290,Lee Sun-kyun
+48,556435,Cho Yeo-jeong
+49,1255881,Choi Woo-shik
+50,1442583,Park So-dam
+51,1596934,Natalia Reyes
+52,1110405,Mackenzie Davis
+53,2713,Linda Hamilton
+54,111016,Gabriel Luna
+55,1100,Arnold Schwarzenegger
+56,225730,Ryunosuke Kamiki
+57,1369100,Mone Kamishiraishi
+58,87637,Masami Nagasawa
+59,91288,Etsuko Ichihara
+60,1668610,Ryou Narita
+61,2450298,Grant Martin
+62,2450299,Michelle Medoff
+63,2450300,Jack William
+64,2450301,Josiah Authier
+65,1158,Al Pacino
+66,3087,Robert Duvall
+67,3092,Diane Keaton
+68,380,Robert De Niro
+69,3096,John Cazale
+70,5530,James McAvoy
+71,83002,Jessica Chastain
+72,19278,Bill Hader
+73,5296,James Ransone
+74,223901,Jay Ryan
+75,19587,Rumi Hiiragi
+76,19588,Miyu Irino
+77,19589,Mari Natsuki
+78,119243,Bunta Sugawara
+79,19594,Yumi Tamai
+80,65510,Mayumi Tanaka
+81,84507,Kazuya Nakai
+82,90133,Akemi Okamura
+83,68472,Kappei Yamaguchi
+84,84505,Hiroaki Hirata
+85,31,Tom Hanks
+86,61981,Michael Clarke Duncan
+87,52,David Morse
+88,5149,Bonnie Hunt
+89,2505,James Cromwell
+90,2888,Will Smith
+91,17628,Mary Elizabeth Winstead
+92,2296,Clive Owen
+93,30082,Benedict Wong
+94,58643,Linda Emond
+95,8891,John Travolta
+96,2231,Samuel L. Jackson
+97,139,Uma Thurman
+98,62,Bruce Willis
+99,10182,Ving Rhames
+100,16483,Sylvester Stallone
+101,543530,Dave Bautista
+102,5915,Jaime King
+103,21354,Russell Wong
+104,1614437,Danni Wang
+105,4818,Roberto Benigni
+106,9235,Nicoletta Braschi
+107,9236,Giorgio Cantarini
+108,9237,Giustino Durano
+109,9238,Amerigo Fontani
+110,17276,Gerard Butler
+111,192,Morgan Freeman
+112,9575,Jada Pinkett Smith
+113,129101,Lance Reddick
+114,1462,Tim Blake Nelson
+115,31,Tom Hanks
+116,32,Robin Wright
+117,33,Gary Sinise
+118,34,Mykelti Williamson
+119,35,Sally Field
+120,887,Owen Wilson
+121,3636,Paul Newman
+122,5149,Bonnie Hunt
+123,15897,Larry the Cable Guy
+124,4252,Tony Shalhoub
+125,3894,Christian Bale
+126,3895,Michael Caine
+127,1810,Heath Ledger
+128,64,Gary Oldman
+129,6383,Aaron Eckhart
+130,56734,Chloë Grace Moretz
+131,237455,Sam Claflin
+132,11150,Gina Gershon
+133,161932,Jim Rash
+134,9657,Patrick Warburton
+135,380,Robert De Niro
+136,4512,James Woods
+137,4513,Elizabeth McGovern
+138,4517,Joe Pesci
+139,4521,Burt Young
+140,37917,Kristen Stewart
+141,240724,Naomi Scott
+142,2092879,Ella Balinska
+143,9281,Elizabeth Banks
+144,17243,Jonathan Tucker
+145,109,Elijah Wood
+146,1327,Ian McKellen
+147,110,Viggo Mortensen
+148,1328,Sean Astin
+149,882,Liv Tyler
+150,1892,Matt Damon
+151,3894,Christian Bale
+152,19498,Jon Bernthal
+153,72638,Tracy Letts
+154,147056,Caitriona Balfe
+155,819,Edward Norton
+156,287,Brad Pitt
+157,1283,Helena Bonham Carter
+158,7470,Meat Loaf
+159,7499,Jared Leto
+160,67599,Vanessa Hudgens
+161,1711290,Josh Whitehouse
+162,59192,Emmanuelle Chriqui
+163,1510971,Harry Jarvis
+164,1225784,Ella Kenion
+165,380,Robert De Niro
+166,11477,Ray Liotta
+167,4517,Joe Pesci
+168,11478,Lorraine Bracco
+169,7004,Paul Sorvino
+170,18918,Dwayne Johnson
+171,976,Jason Statham
+172,17605,Idris Elba
+173,556356,Vanessa Kirby
+174,1222992,Eiza González
+175,587506,Shameik Moore
+176,543505,Jake Johnson
+177,130640,Hailee Steinfeld
+178,932967,Mahershala Ali
+179,226366,Brian Tyree Henry
+180,1341,Donnie Yen
+181,83633,Vanness Wu
+182,78110,Scott Adkins
+183,1173223,Danny Chan Kwok-Kwan
+184,1800792,Wu Yue
+185,7301,Anthony Perkins
+186,7302,Janet Leigh
+187,7303,Vera Miles
+188,7304,John Gavin
+189,1936,Martin Balsam
+190,1515478,Mena Massoud
+191,240724,Naomi Scott
+192,2888,Will Smith
+193,935235,Marwan Kenzari
+194,103330,Navid Negahban
+195,190,Clint Eastwood
+196,3265,Eli Wallach
+197,4078,Lee Van Cleef
+198,5813,Aldo Giuffrè
+199,5814,Luigi Pistilli

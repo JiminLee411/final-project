@@ -19,15 +19,28 @@
             {{user.username}}
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="{% url 'accounts:detail' user.pk%}">프로필</a>
-            <a class="dropdown-item" href="{% url 'accounts:update'%}">회원정보 수정</a>
-            <a class="dropdown-item" href="{% url 'accounts:password_change'%}">비밀번호 변경</a>
+            <a class="dropdown-item" href="{% url 'accounts:detail' user.pk %}">프로필</a>
+            <a class="dropdown-item" href="{% url 'accounts:update' %}">회원정보 수정</a>
+            <a class="dropdown-item" href="{% url 'accounts:password_change' %}">비밀번호 변경</a>
             <a class="dropdown-item" href="{% url 'accounts:logout' %}">로그아웃</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="#">회원탈퇴</a>
           </div>
         </li>
-
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" text-align='right'>
+            장르
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <div class="dropdown">
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <div v-for="genre in genres">
+                  <!-- <a class="dropdown-item" :href=`https://django-project-rngus3050.c9users.io/genre/${genre.genre_box_id}`>[[ genre.name ]]</a> --> 
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>        
         {% comment %} <li class="nav-item">
           <a class="nav-link" href="{% url 'accounts:logout' %}"> 로그아웃</a>
         </li> {% endcomment %}
@@ -43,9 +56,32 @@
     </ul>
     
     <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="text" name="keyword" placeholder="키워드 검색" aria-label="Search">
+      <input class="form-control mr-sm-2" type="text" name="keyword" placeholder="영화 제목 검색" aria-label="Search">
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form>
   </div>
   
 </nav>
+
+
+{% comment %} 
+
+<a class="dropdown-item" href="{% url 'movies: movies_genre_detail' %}" id='28'>액션</a>
+<a class="dropdown-item" href="{% url 'movies: movies_genre_detail' %}" id='12'>모험</a>
+<a class="dropdown-item" href="{% url 'movies: movies_genre_detail' %}" id='16'>애니메이션</a>
+<a class="dropdown-item" href="{% url 'movies: movies_genre_detail' %}" id='35'>코미디</a>
+<a class="dropdown-item" href="{% url 'movies: movies_genre_detail' %}" id='80'>범죄</a>
+<a class="dropdown-item" href="{% url 'movies: movies_genre_detail' %}" id='99'>다큐멘터리</a>
+<a class="dropdown-item" href="{% url 'movies: movies_genre_detail' %}" id='18'>드라마</a>
+<a class="dropdown-item" href="{% url 'movies: movies_genre_detail' %}" id='10751'>가족</a>
+<a class="dropdown-item" href="{% url 'movies: movies_genre_detail' %}" id='14'>판타지</a>
+<a class="dropdown-item" href="{% url 'movies: movies_genre_detail' %}" id='36'>역사</a>
+<a class="dropdown-item" href="{% url 'movies: movies_genre_detail' %}" id='27'>공포</a>
+<a class="dropdown-item" href="{% url 'movies: movies_genre_detail' %}" id='10402'>음악</a>
+<a class="dropdown-item" href="{% url 'movies: movies_genre_detail' %}" id='9648'>미스터리</a>
+<a class="dropdown-item" href="{% url 'movies: movies_genre_detail' %}" id='10749'>로맨스</a>
+<a class="dropdown-item" href="{% url 'movies: movies_genre_detail' %}" id='878'>SF</a>
+<a class="dropdown-item" href="{% url 'movies: movies_genre_detail' %}" id='10770'>TV 영화</a>
+<a class="dropdown-item" href="{% url 'movies: movies_genre_detail' %}" id='53'>스릴러</a>
+<a class="dropdown-item" href="{% url 'movies: movies_genre_detail' %}" id='10752'>전쟁</a>
+<a class="dropdown-item" href="{% url 'movies: movies_genre_detail' %}" id='37'>서부</a> {% endcomment %}

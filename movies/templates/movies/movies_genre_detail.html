@@ -1,11 +1,12 @@
-{% extends 'accounts/base.html' %}
+{% comment %} {% extends 'accounts/base.html' %}
 {% load static %}
 {% block body %}
     {% for movie in movies %}
+        {% if id == &}
         <a href="{% url 'movies:movies_detail' movie.pk %}">
             <img src="{{ movie.poster_url }}" alt="{{ movie.title }}" style="width:24%;">
         </a>
     {% empty %}
-        <p>등록된 영화가 없습니다.</p>
+        <p>해당 영화가 없습니다.</p>
     {% endfor %}
-{% endblock %}
+{% endblock %} {% endcomment %}
