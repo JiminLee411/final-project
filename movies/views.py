@@ -56,3 +56,21 @@ def like(request, movie_pk):
     else:
         messages.warning(request, '로그인이 필요한 기능입니다.')
     return redirect('movies:movies_detail', movie_pk)
+
+def update_score(request, review_pk):
+    review = get_object_or_404(Review, pk=review_pk)
+    if request.user == review.user:
+        if request.method == 'POST':
+            form = ReviewForm(request.POST, instance=review)
+            if form.is_valid():
+                form.save()
+                return redirect('movies:movies_detail', review.movie.pk)
+        else:
+            form = ReviewForm(instance=review)
+        context = {
+            'form': form
+        }
+        return render(request, 'accounts/form.html', context)
+    else:
+        messages.warning(request, '수정 권한이 없습니다.')
+    return redirect('movies:movies_detail', review.movie.pk)
