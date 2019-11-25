@@ -11,23 +11,21 @@
       </li>
       <!-- 로그인이 되어 있다면, -->
       {% if user.is_authenticated %} <!-- 로그인이 되어 있는지 확인하는 method -->
-        {% comment %} <li class="nav-item">
-          <a class="nav-link" href="#"> {{user.username}}</a> <!-- login과 관련된 모든 정보는 request에 저장되어 있기 때문에 context로 안넘겨줘도 사용 가능! -->
-        </li> {% endcomment %}
+        <!-- Example single info button -->
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            {{user.username}}
+            Dropdown
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="{% url 'accounts:detail' user.pk%}">프로필</a>
-            <a class="dropdown-item" href="{% url 'accounts:update'%}">회원정보 수정</a>
-            <a class="dropdown-item" href="{% url 'accounts:password_change'%}">비밀번호 변경</a>
-            <a class="dropdown-item" href="{% url 'accounts:logout' %}">로그아웃</a>
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">회원탈퇴</a>
+            <a class="dropdown-item" href="#">Something else here</a>
           </div>
         </li>
-
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'accounts:detail' user.pk%}"> {{user.username}}</a> <!-- login과 관련된 모든 정보는 request에 저장되어 있기 때문에 context로 안넘겨줘도 사용 가능! -->
+        </li>
         {% comment %} <li class="nav-item">
           <a class="nav-link" href="{% url 'accounts:logout' %}"> 로그아웃</a>
         </li> {% endcomment %}
@@ -49,3 +47,6 @@
   </div>
   
 </nav>
+
+
+      {% comment %} method="GET" action="{% url 'movies_index.html' %}"  {% endcomment %}

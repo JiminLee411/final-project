@@ -1,10 +1,13 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
-from .forms import CustomUserChangeForm, CustomUserCreationForm
+
+from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
+
+from .forms import CustomUserChangeForm, CustomUserCreationForm
 # Create your views here.
 def index(request):
     context = {
@@ -12,33 +15,41 @@ def index(request):
     }
     return render(request, 'accounts/index.html', context)
 
+
 def signup(request):
+    if request.user.is_authenticated:
+        return redirect('movies:movie_index')
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
-            auth_login(request, form.save())
-            return redirect('accounts:index')
+            user = form.save()
+            auth_login(request, user)
+            return redirect('movies:movies_index')
     else:
-        form = CustomUserCreationForm
+        form = CustomUserCreationForm()
     context = {
         'form': form
     }
     return render(request, 'accounts/form.html', context)
 
+@login_required
 def detail(request, user_pk):
+    User = get_user_model()
+    user = get_object_or_404(User, pk=user_pk)
     context = {
-        'user_profile' : get_user_model().objects.get(pk=user_pk)
+        'user_profile' : user
     }
     return render(request, 'accounts/detail.html', context)
 
 def login(request):
     if request.user.is_authenticated:
-        return redirect('accounts:index')
+        return redirect('movies:movies_index')
     if request.method == 'POST':
-        form = AuthenticationForm(request, request.POST)
+        form = AuthenticationForm(request=request, data=request.POST)
         if form.is_valid():
-            auth_login(request, form.get_user())
-            return redirect('accounts:index')
+            user = form.get_user()
+            auth_login(request, user)
+            return redirect(request.GET.get('next') or 'movies:movies_index')
     else:
         form = AuthenticationForm()
     context = {
@@ -48,7 +59,37 @@ def login(request):
 
 def logout(request):
     auth_logout(request)
-    return redirect('accounts:index')
+    return redirect('movies:movies_index')
+
+@login_required
+def update(request):
+    if request.method == 'POST':
+        form = CustomUserChangeForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('movies:movies_index')
+    else:
+        form = CustomUserChangeForm(instance=request.user)
+    context = {
+        'form': form
+    }
+    return render(request, 'accounts/form.html', context)
+
+@login_required
+def password_change(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            form.save()
+            update_session_auth_hash(request, form.user)
+            return redirect('movies:movies_index')
+    else:
+        form = PasswordChangeForm(request.user) # 반드시 첫번째 인자로 user
+    context = {
+        'form': form
+    }
+    return render(request, 'accounts/form.html', context)
+
 
 @login_required
 def follow(request, user_pk):
