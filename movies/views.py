@@ -4,6 +4,7 @@ from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
 from .forms import RatingForm
 from django.contrib import messages
+
 # Create your views here.
 def movies_index(request):
     movies = Movie.objects.all()

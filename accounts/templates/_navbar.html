@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
   <a class="navbar-brand" href="{% url 'movies:movies_index' %}">MovieBuddy</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -35,15 +35,13 @@
             <div class="dropdown">
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <div v-for="genre in genres">
-                  <!-- <a class="dropdown-item" :href=`https://django-project-rngus3050.c9users.io/genre/${genre.genre_box_id}`>[[ genre.name ]]</a> --> 
+                  <a class="dropdown-item" :href="#">{{ genre.name }}</a> 
                 </div>
               </div>
             </div>
           </div>
         </li>        
-        {% comment %} <li class="nav-item">
-          <a class="nav-link" href="{% url 'accounts:logout' %}"> 로그아웃</a>
-        </li> {% endcomment %}
+
         <!-- 로그인이 되어 있지 않다면, -->
         {% else %}
         <li class="nav-item">
@@ -55,7 +53,7 @@
       {% endif %}
     </ul>
     
-    <form class="form-inline my-2 my-lg-0">
+    <form action="{% url 'movies:movies_index' %}" class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2" type="text" name="keyword" placeholder="영화 제목 검색" aria-label="Search">
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form>
