@@ -39,13 +39,15 @@ def movies_index(request):
     
 def detail(request, movie_pk):
     movie = get_object_or_404(Movie, pk=movie_pk)
+    ratings = movie.rating_set.all()
     # genres = Genre.objects.all()
     # if movie.genres == genres.name:
 
-    form = RatingForm()
+    rating_form = RatingForm()
     context = {
         'movie': movie,
-        'form': form
+        'ratings': ratings,
+        'rating_form': rating_form
     }
     return render(request, 'movies/movies_detail.html', context)
 
@@ -108,11 +110,11 @@ def rating_update_and_delete(request, rating_pk, movie_pk):
 
 @require_POST
 @login_required
-def rating_create(request, movie_pk):
+def create_rating(request, movie_pk):
     movie = get_object_or_404(Movie, pk=movie_pk)
     if len(movie.rating_set.filter(user_id = request.user.id)) == 0:
         rating_form = RatingForm(request.POST)
-        if ratingform.is_valid():
+        if rating_form.is_valid():
             rating = rating_form.save(commit=False)
             rating.user = request.user
             rating.movie_id = movie_pk
@@ -127,16 +129,16 @@ def rating_update(request, movie_pk, rating_pk):
         return redirect('movies:detail', movie_pk)
 
     if request.method == 'POST':
-            ratingform = RatingForm(request.POST, instance=rating)
-            if ratingform.is_valid():
+            rating_form = RatingForm(request.POST, instance=rating)
+            if rating_form.is_valid():
                 rating.save()
                 return redirect('movies:detail', movie_pk)
     else:
-        ratingform = RatingForm(instance=rating)
+        rating_form = RatingForm(instance=rating)
     context = {
-        'ratingform':ratingform
+        'rating_form':rating_form
     }
-    return render(request, 'page/form.html', context)
+    return render(request, 'movies/form.html', context)
 
 @login_required
 def rating_delete(request, movie_pk, rating_pk):
@@ -176,22 +178,3 @@ def update_score(request, rating_pk):
     else:
         messages.warning(request, '수정 권한이 없습니다.')
     return redirect('movies:detail', rating.movie.pk)
-
-@login_required
-def rating_update(request, movie_pk, rating_pk):
-    movie = get_object_or_404(Movie, pk=movie_pk)
-    rating = get_object_or_404(Rating, pk=rating_pk)
-    if rating.user != request.user:
-        return redirect('page:list')
-
-    if request.method == 'POST':
-            ratingform = RatingForm(request.POST, instance=rating)
-            if ratingform.is_valid():
-                rating.save()
-                return redirect('page:detail', movie.pk)
-    else:
-        ratingform = RatingForm(instance=rating)
-    context = {
-        'ratingform':ratingform
-    }
-    return render(request, 'page/form.html', context)
