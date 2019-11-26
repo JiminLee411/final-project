@@ -5,4 +5,4 @@ from .models import Rating
 class RatingForm(forms.ModelForm):
     class Meta:
         model = Rating
-        fields = ('content', 'score')
+        fields = ('comment', 'score')
