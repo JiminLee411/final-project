@@ -22,12 +22,12 @@
   <style>
     body, html {
     font-family: 'Do Hyeon', sans-serif;
-    color: grey;
+    color: white;
     margin: 0;
     padding: 0;
     height: 100%;
     }
-    .bgimg {
+    .body {
         border: 0;
         padding: 0; 
         background-image: url('{% static 'movies/background.JPG' %}');
@@ -39,8 +39,10 @@
   {% block css %}
   {% endblock %}
 </head>
-<body class="text-light">
+
+<body class="text-light" >
     {% include '_navbar.html' %}
+  <br><br><br>
   <div class="container">
   {% if messages %}
   {% for message in messages %}
