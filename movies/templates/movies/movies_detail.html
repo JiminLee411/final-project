@@ -17,9 +17,21 @@
           
           
           <p>{{ movie.vote_average }}</p>
+          {% if movie.vote_average <= 2 %}
+            <p>★</p>
+          {% elif movie.vote_average <= 4 %}
+            <p>★★</p>
+          {% elif movie.vote_average <= 6 %}
+            <p>★★★</p>
+          {% elif movie.vote_average <= 8 %}
+            <p>★★★★</p>
+          {% else %}
+            <p>★★★★★</p>
+          {% endif %}
             <hr>
             <br><br><br>
             <div style="text-align:center; font-weight: normal;">
+                
                 <h6>감독     {{ movie.director }}</h6>
                 <h6>
                     출연        
