@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
   <a class="navbar-brand" href="{% url 'movies:movies_index' %}">MovieBuddy</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -24,7 +24,7 @@
             <a class="dropdown-item" href="{% url 'accounts:password_change' %}">비밀번호 변경</a>
             <a class="dropdown-item" href="{% url 'accounts:logout' %}">로그아웃</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">회원탈퇴</a>
+            <a class="dropdown-item" href="{% url 'accounts:delete' user.pk %}">회원탈퇴</a>
           </div>
         </li>
         <li class="nav-item dropdown">
