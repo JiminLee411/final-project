@@ -16,39 +16,48 @@
           
           
           
-          <p>{{ movie.vote_average }}</p>
+          <h6>{{ movie.vote_average }}</h6>
           {% if movie.vote_average <= 2 %}
-            <p>★</p>
+            <h4>★</h4>
           {% elif movie.vote_average <= 4 %}
-            <p>★★</p>
+            <h4>★★</h4>
           {% elif movie.vote_average <= 6 %}
-            <p>★★★</p>
+            <h4>★★★</h4>
           {% elif movie.vote_average <= 8 %}
-            <p>★★★★</p>
+            <h4>★★★★</h4>
           {% else %}
-            <p>★★★★★</p>
+            <h4>★★★★★</h4>
           {% endif %}
           
             <hr>
             <br><br><br>
-            <div style="text-align:center; font-weight: normal;">
-                <h6>감독     <a href="">{{ movie.director }}</a></h6>
+            <div style="text-align:left; font-weight: normal; margin-left: 30px;" >
+                <h6>감독&nbsp;&nbsp;&nbsp;&nbsp; <a href="#">{{ movie.director }}</a></h6>
                 <h6>
-                    출연      
-                    
-                    {% comment %} {% if movie.actor_1 == actor.actor_id %}  {% endcomment %}
+                    출연&nbsp;&nbsp;&nbsp;&nbsp;
+                    {% for index in MovieActors %}
+                      {{ index }}, &nbsp;
+                    {% endfor %}
                 </h6>
-                <h6>개요          
-                {{ genre.name }}    |   {{ movie.adult }}  |   {{ movie.release_date }}
+                <h6>개요&nbsp;&nbsp;&nbsp;&nbsp;
+                {{ genre_name }}&nbsp;&nbsp;|&nbsp;&nbsp;
+
+                {{ movie.runtime }}분&nbsp;&nbsp;|&nbsp;&nbsp;
+                개봉일자 : {{ movie.release_date }}&nbsp;&nbsp;|&nbsp;&nbsp;
                 </h6><br>
+                <p><span id="like-count">{{ movie.like_users.count }}</span>명이 이 글을 좋아합니다.</p>
+                {% if user in movie.like_users.all %}
+                <i id="like-button" data-id="{{user.id}}" class="fas fa-heart fa-2x" style="color: red;"></i>
+                {% else %}
+                <i id="like-button" data-id="{{user.id}}" class="far fa-heart fa-2x" style="color: black;"></i>
+                {% endif %}
 
-
-                <p><span id="like-count">{{ movie.like_users.count }}</span>명이 이 영화를 찜하였습니다.</p>
+                {% comment %} <p><span id="like-count">{{ movie.like_users.count }}</span>명이 이 영화를 찜하였습니다.</p>
                 {% if user in movie.like_users.all %}
                     <i id="like-button" data-id="{{ movie.id}}" class="fas fa-heart fa-2x" style="color: red;"></i>
                 {% else %}
                     <i id="like-button" data-id="{{movie.id}}" class="far fa-heart fa-2x" style="color: black;"></i>
-                {% endif %}
+                {% endif %} {% endcomment %}
                 <br><br><br>
                 <p>{{ movie.overview }}</p></th><br>
             </div>
@@ -68,13 +77,13 @@
     <p>등록된 평점이 없습니다.</p>
 {% endfor %}
 
-{% if user.is_authenticated %}
+{% comment %} {% if user.is_authenticated %}
     <form action="{% url 'movies:rating_create' movie.pk %}" method="POST">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">확인</button>
     </form>
-{% endif %}
+{% endif %} {% endcomment %}
 
 <script>
   const likeButton = document.querySelector('#like-button')

@@ -56,9 +56,7 @@ class Rating(models.Model): # Review
                     MaxValueValidator(10),
                     MinValueValidator(1)
             ])
-    
 
-    
-
+            
     def __str__(self):
         return self.comment
