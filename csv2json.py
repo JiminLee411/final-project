@@ -1,4 +1,7 @@
+<<<<<<< HEAD
+=======
 #-*- coding: utf-8 -*-
+>>>>>>> 0f6ecdca6f7a6b5f49bbfd27edafa740f95a4a6a
 # csv2json.py
 #
 # Copyright 2009 Brian Gershon -- briang at webcollective.coop
@@ -22,9 +25,6 @@ import json
 import os
 import re
 import sys
-
-
-
 
 # Options
 ENCODING = 'UTF-8'

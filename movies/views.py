@@ -4,21 +4,41 @@ from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
 from .forms import RatingForm
 from django.contrib import messages
+
 # Create your views here.
 def movies_index(request):
-    movies = Movie.objects.all()
+    movies = Movie.objects.exclude(poster_path=0)
+    movies_popular = Movie.objects.order_by('id')[0:20]
+    movies_vote = Movie.objects.order_by('-vote_average')[0:20]
     genres = Genre.objects.all()
     keyword = request.GET.get('keyword', '')
     if keyword:
         movies = movies.filter(title__icontains=keyword)
-    context = {
-        'movies' : movies,
-        'genres' : genres,
-    }
+        context = {
+            'movies_popular' : None,
+            'movies_vote' : None,
+            'movies': movies,
+            'genres' : genres,
+        }
+    else:
+        context = {
+            'movies_popular' : movies_popular,
+            'movies_vote' : movies_vote,
+            'movies': None,
+            'genres' : genres,
+        }
     return render(request, 'movies/movies_index.html', context)
 
+def genres_view(request):
+    genre = get_object_or_404(Genre, type=request.GET.get('type'))
+    return render(request, 'movies/genre.html', {'genre': genre})
+
+    
 def movies_detail(request, movie_pk):
     movie = get_object_or_404(Movie, pk=movie_pk)
+    # genres = Genre.objects.all()
+    # if movie.genres == genres.name:
+
     form = RatingForm()
     context = {
         'movie': movie,
