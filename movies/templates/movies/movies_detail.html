@@ -1,7 +1,7 @@
 {% extends 'accounts/base.html' %}
 {% block body %}
-
-<img src="{{ movie.poster_url }}" alt="{{ movie.title }}" style="width:20vw;">
+<br><br><br>
+<img src="{{ movie.poster_url }}" alt="{{ movie.title }}" style="width:21vw; display:center" class="d-inline">
 <h3>제목: {{ movie.title }}</h3>
 <hr>
 <p>관객수: {{ movie.audience }}명</p>
