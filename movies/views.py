@@ -7,18 +7,26 @@ from django.contrib import messages
 
 # Create your views here.
 def movies_index(request):
-    # movies = Movie.objects.exclude(poster_path=0)
+    movies = Movie.objects.exclude(poster_path=0)
     movies_popular = Movie.objects.order_by('id')[0:20]
     movies_vote = Movie.objects.order_by('-vote_average')[0:20]
     genres = Genre.objects.all()
     keyword = request.GET.get('keyword', '')
     if keyword:
         movies = movies.filter(title__icontains=keyword)
-    context = {
-        'movies_popular' : movies_popular,
-        'movies_vote' : movies_vote,
-        'genres' : genres,
-    }
+        context = {
+            'movies_popular' : None,
+            'movies_vote' : None,
+            'movies': movies,
+            'genres' : genres,
+        }
+    else:
+        context = {
+            'movies_popular' : movies_popular,
+            'movies_vote' : movies_vote,
+            'movies': None,
+            'genres' : genres,
+        }
     return render(request, 'movies/movies_index.html', context)
 
 def genres_view(request):
