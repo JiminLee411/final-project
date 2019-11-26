@@ -2,9 +2,11 @@
 {% load static %}
 {% block body %}
     {% for movie in movies %}
-        <a href="{% url 'movies:movies_detail' movie.pk %}">
-            <img src="https://image.tmdb.org/t/p/w185_and_h278_bestv2/{{ movie.poster_path }}" alt="{{ movie.title }}" style="width:24%;">
-        </a>
+        {% if movie.overview %}
+            <a href="{% url 'movies:movies_detail' movie.pk %}">
+                <img src="https://image.tmdb.org/t/p/w185_and_h278_bestv2/{{ movie.poster_path }}" alt="{{ movie.title }}" style="width:24%;">
+            </a>
+        {% endif %}
     {% empty %}
         <p>등록된 영화가 없습니다.</p>
     {% endfor %}
