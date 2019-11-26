@@ -1,13 +1,17 @@
 from django.shortcuts import render, redirect, get_object_or_404
+
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
-
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
 
+from django.views.decorators.http import require_POST
+
 from .forms import CustomUserChangeForm, CustomUserCreationForm
+
+
 # Create your views here.
 def index(request):
     context = {
@@ -90,6 +94,11 @@ def password_change(request):
     }
     return render(request, 'accounts/form.html', context)
 
+
+def delete(request, user_pk):
+    if request.user.is_authenticated:
+        request.user.delete()
+    return redirect('movies:movies_index')
 
 @login_required
 def follow(request, user_pk):

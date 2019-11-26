@@ -3,7 +3,7 @@
         "pk": 0,
         "model": "movies.Genre",
         "fields": {
-            "name": "¾×¼Ç",
+            "name": "ì•¡ì…˜",
             "genre_id": 28
         }
     },
@@ -11,7 +11,7 @@
         "pk": 1,
         "model": "movies.Genre",
         "fields": {
-            "name": "¸ğÇè",
+            "name": "ëª¨í—˜",
             "genre_id": 12
         }
     },
@@ -19,7 +19,7 @@
         "pk": 2,
         "model": "movies.Genre",
         "fields": {
-            "name": "¾Ö´Ï¸ŞÀÌ¼Ç",
+            "name": "ì• ë‹ˆë©”ì´ì…˜",
             "genre_id": 16
         }
     },
@@ -27,7 +27,7 @@
         "pk": 3,
         "model": "movies.Genre",
         "fields": {
-            "name": "ÄÚ¹Ìµğ",
+            "name": "ì½”ë¯¸ë””",
             "genre_id": 35
         }
     },
@@ -35,7 +35,7 @@
         "pk": 4,
         "model": "movies.Genre",
         "fields": {
-            "name": "¹üÁË",
+            "name": "ë²”ì£„",
             "genre_id": 80
         }
     },
@@ -43,7 +43,7 @@
         "pk": 5,
         "model": "movies.Genre",
         "fields": {
-            "name": "´ÙÅ¥¸àÅÍ¸®",
+            "name": "ë‹¤íë©˜í„°ë¦¬",
             "genre_id": 99
         }
     },
@@ -51,7 +51,7 @@
         "pk": 6,
         "model": "movies.Genre",
         "fields": {
-            "name": "µå¶ó¸¶",
+            "name": "ë“œë¼ë§ˆ",
             "genre_id": 18
         }
     },
@@ -59,7 +59,7 @@
         "pk": 7,
         "model": "movies.Genre",
         "fields": {
-            "name": "°¡Á·",
+            "name": "ê°€ì¡±",
             "genre_id": 10751
         }
     },
@@ -67,7 +67,7 @@
         "pk": 8,
         "model": "movies.Genre",
         "fields": {
-            "name": "ÆÇÅ¸Áö",
+            "name": "íŒíƒ€ì§€",
             "genre_id": 14
         }
     },
@@ -75,7 +75,7 @@
         "pk": 9,
         "model": "movies.Genre",
         "fields": {
-            "name": "¿ª»ç",
+            "name": "ì—­ì‚¬",
             "genre_id": 36
         }
     },
@@ -83,7 +83,7 @@
         "pk": 10,
         "model": "movies.Genre",
         "fields": {
-            "name": "°øÆ÷",
+            "name": "ê³µí¬",
             "genre_id": 27
         }
     },
@@ -91,7 +91,7 @@
         "pk": 11,
         "model": "movies.Genre",
         "fields": {
-            "name": "À½¾Ç",
+            "name": "ìŒì•…",
             "genre_id": 10402
         }
     },
@@ -99,7 +99,7 @@
         "pk": 12,
         "model": "movies.Genre",
         "fields": {
-            "name": "¹Ì½ºÅÍ¸®",
+            "name": "ë¯¸ìŠ¤í„°ë¦¬",
             "genre_id": 9648
         }
     },
@@ -107,7 +107,7 @@
         "pk": 13,
         "model": "movies.Genre",
         "fields": {
-            "name": "·Î¸Ç½º",
+            "name": "ë¡œë§¨ìŠ¤",
             "genre_id": 10749
         }
     },
@@ -123,7 +123,7 @@
         "pk": 15,
         "model": "movies.Genre",
         "fields": {
-            "name": "TV ¿µÈ­",
+            "name": "TV ì˜í™”",
             "genre_id": 10770
         }
     },
@@ -131,7 +131,7 @@
         "pk": 16,
         "model": "movies.Genre",
         "fields": {
-            "name": "½º¸±·¯",
+            "name": "ìŠ¤ë¦´ëŸ¬",
             "genre_id": 53
         }
     },
@@ -139,7 +139,7 @@
         "pk": 17,
         "model": "movies.Genre",
         "fields": {
-            "name": "ÀüÀï",
+            "name": "ì „ìŸ",
             "genre_id": 10752
         }
     },
@@ -147,7 +147,7 @@
         "pk": 18,
         "model": "movies.Genre",
         "fields": {
-            "name": "¼­ºÎ",
+            "name": "ì„œë¶€",
             "genre_id": 37
         }
     }

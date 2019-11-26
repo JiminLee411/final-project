@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Genre, Movie, Review
+from .models import Genre, Movie, Rating
 from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
-from .forms import ReviewForm
+from .forms import RatingForm
 from django.contrib import messages
 # Create your views here.
 def movies_index(request):
@@ -19,7 +19,7 @@ def movies_index(request):
 
 def movies_detail(request, movie_pk):
     movie = get_object_or_404(Movie, pk=movie_pk)
-    form = ReviewForm()
+    form = RatingForm()
     context = {
         'movie': movie,
         'form': form
@@ -27,21 +27,21 @@ def movies_detail(request, movie_pk):
     return render(request, 'movies/movies_detail.html', context)
 
 @require_POST
-def review_create(request, movie_pk):
+def rating_create(request, movie_pk):
     if request.user.is_authenticated:
-        form = ReviewForm(request.POST)
+        form = RatingForm(request.POST)
         if form.is_valid():
-            review = form.save(commit=False)
-            review.user = request.user
-            review.movie_id = movie_pk
-            review.save()
+            rating = form.save(commit=False)
+            rating.user = request.user
+            rating.movie_id = movie_pk
+            rating.save()
     else:
         messages.warning(request, '로그인이 필요합니다.')
     return redirect('movies:movies_detail', movie_pk)
 
-def review_delete(request, movie_pk, review_pk):
-    review = get_object_or_404(Review, pk=review_pk)
-    review.delete()
+def rating_delete(request, movie_pk, rating_pk):
+    rating = get_object_or_404(Rating, pk=rating_pk)
+    rating.delete()
     messages.warning(request, '리뷰가 삭제되었습니다.')
     return redirect('movies:movies_detail', movie_pk)
 
@@ -57,20 +57,20 @@ def like(request, movie_pk):
         messages.warning(request, '로그인이 필요한 기능입니다.')
     return redirect('movies:movies_detail', movie_pk)
 
-def update_score(request, review_pk):
-    review = get_object_or_404(Review, pk=review_pk)
-    if request.user == review.user:
+def update_score(request, rating_pk):
+    rating = get_object_or_404(Rating, pk=rating_pk)
+    if request.user == rating.user:
         if request.method == 'POST':
-            form = ReviewForm(request.POST, instance=review)
+            form = ratingForm(request.POST, instance=rating)
             if form.is_valid():
                 form.save()
-                return redirect('movies:movies_detail', review.movie.pk)
+                return redirect('movies:movies_detail', rating.movie.pk)
         else:
-            form = ReviewForm(instance=review)
+            form = ratingForm(instance=rating)
         context = {
             'form': form
         }
         return render(request, 'accounts/form.html', context)
     else:
         messages.warning(request, '수정 권한이 없습니다.')
-    return redirect('movies:movies_detail', review.movie.pk)
+    return redirect('movies:movies_detail', rating.movie.pk)
