@@ -1,8 +1,8 @@
 from django import forms
 
-from .models import Review
+from .models import Rating
 
-class ReviewForm(forms.ModelForm):
+class RatingForm(forms.ModelForm):
     class Meta:
-        model = Review
+        model = Rating
         fields = ('content', 'score')
