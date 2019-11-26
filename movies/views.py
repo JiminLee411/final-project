@@ -17,6 +17,11 @@ def movies_index(request):
     }
     return render(request, 'movies/movies_index.html', context)
 
+def genres_view(request):
+    genre = get_object_or_404(Genre, type=request.GET.get('type'))
+    return render(request, 'movies/genre.html', {'genre': genre})
+
+    
 def movies_detail(request, movie_pk):
     movie = get_object_or_404(Movie, pk=movie_pk)
     form = RatingForm()
