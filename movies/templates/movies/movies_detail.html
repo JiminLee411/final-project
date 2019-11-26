@@ -2,12 +2,13 @@
 {% load static %}
 {% block body %}
 
-<img src="{{ movie.poster_url }}" alt="{{ movie.title }}" style="width:25vw; align: center;">
-<h3>제목: {{ movie.title }}</h3>
-<hr>
-<p>관객수: {{ movie.audience }}명</p>
+<div >
+    <img src="https://image.tmdb.org/t/p/w185_and_h278_bestv2/{{ movie.poster_path }}" alt="{{ movie.title }}" style="width:20vw;">
+    <h3>제목: {{ movie.title }}</h3>
+    <hr>
+    <p>관객수: {{ movie.popularity }}명</p>
 <p>장르: {{ movie.genre.name }}</p>
-<p>줄거리: {{ movie.description }}</p>
+<p>줄거리: {{ movie.overview }}</p>
 
 {% if user.is_authenticated %}
     <form action="{% url 'movies:like' movie.pk %}" method="POST">
@@ -30,9 +31,9 @@
   {% endif %}
 
 <hr>
-{% for review in movie.review_set.all %}
-    <p><a href="{% url 'accounts:detail' review.user.pk %}">{{ review.user.username }}</a>: {{ review.content }} ({{ review.score }}점)</p>
-    <form action="{% url 'movies:review_delete' movie.pk review.pk %}" method="POST" onclick="return confirm('삭제하시겠습니까?')">
+{% for rating in movie.rating_set.all %}
+    <p><a href="{% url 'accounts:detail' rating.user.pk %}">{{ rating.user.username }}</a>: {{ rating.content }} ({{ rating.score }}점)</p>
+    <form action="{% url 'movies:rating_delete' movie.pk rating.pk %}" method="POST" onclick="return confirm('삭제하시겠습니까?')">
         {% csrf_token %}
         <button type="submit">삭제</button>
     </form>
@@ -41,7 +42,7 @@
 {% endfor %}
 
 {% if user.is_authenticated %}
-    <form action="{% url 'movies:review_create' movie.pk %}" method="POST">
+    <form action="{% url 'movies:rating_create' movie.pk %}" method="POST">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">확인</button>
