@@ -47,18 +47,14 @@ class Actor(models.Model):
 
         
 class Rating(models.Model): # Review
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='ratings')
-    movie = models.ForeignKey(Movie, on_delete=models.CASCADE, related_name='ratings')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
     comment = models.TextField()
     score = models.IntegerField(default=1,
                 validators=[
                     MaxValueValidator(10),
                     MinValueValidator(1)
             ])
-    
-    def username(self):
-        return self.user.username
 
     def __str__(self):
-        return f'{self.movie} | {self.score} | {self.comment}'
-© 2019 GitHub, Inc.
+        return self.comment

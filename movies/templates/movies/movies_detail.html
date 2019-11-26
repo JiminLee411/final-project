@@ -58,7 +58,7 @@
 <br>
 <br>
 {% for rating in movie.rating_set.all %}
-    <p><a href="{% url 'accounts:detail' rating.user.pk %}">{{ rating.user.username }}</a>: {{ rating.content }} ({{ rating.score }}점)</p>
+    <p><a href="{% url 'accounts:detail' rating.user.pk %}">{{ rating.user.username }}</a>: {{ rating.comment }} ({{ rating.score }}점)</p>
     <form action="{% url 'movies:rating_delete' movie.pk rating.pk %}" method="POST" onclick="return confirm('삭제하시겠습니까?')">
         {% csrf_token %}
         <button type="submit">삭제</button>
