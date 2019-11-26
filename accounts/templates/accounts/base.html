@@ -8,6 +8,7 @@
   <title>I'm your MovieBuddy</title>
   <!-- css -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <!-- bootstrap -->
   <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
   <!-- Font Awesome -->
@@ -20,20 +21,16 @@
     axios.defaults.xsrfHeaderName = 'X-CSRFToken';
   </script>  
   <style>
-    body, html {
+    body{
     font-family: 'Do Hyeon', sans-serif;
-    color: white;
+    /* color: black; */
     margin: 0;
     padding: 0;
     height: 100%;
-    }
-    .body {
-        border: 0;
-        padding: 0; 
-        background-image: url('{% static 'movies/background.JPG' %}');
-        min-height: 100%;
-        background-position: center;
-        background-size: cover;
+    background-image: url('{% static '/movies/background.JPG' %}');
+    background-repeat: no-repeat;
+    background-size: cover;
+    
     }
   </style>
   {% block css %}
