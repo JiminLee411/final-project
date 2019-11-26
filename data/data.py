@@ -64,7 +64,7 @@ for movie in range(len(movieList)):
         'overview': response['overview'] if response['overview'] else None,
         'popularity': response['popularity'] if response['popularity'] else None,
         'poster_path': response['poster_path'] if response['poster_path'] else None,
-        'release_date': response['poster_path'] if response['poster_path'] else None,
+        'release_date': response['release_date'] if response['release_date'] else None,
         'revenue': response['revenue'] if response['revenue'] else None,
         'runtime': response['runtime'] if response['runtime'] else None,
         'tagline': response['tagline'] if response['tagline'] else None,
