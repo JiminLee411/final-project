@@ -9,7 +9,7 @@ from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
 
 from django.views.decorators.http import require_POST
 
-from .forms import CustomUserChangeForm, CustomUserCreationForm
+from .forms import CustomUserChangeForm, CustomUserCreationForm 
 
 
 # Create your views here.

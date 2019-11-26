@@ -1,4 +1,5 @@
 {% extends 'accounts/base.html' %}
+{% load bootstrap4 %}
 {% block app %}
 
 <table>
@@ -66,25 +67,41 @@
 </table>
 <br>
 <br>
+<a href="{% url 'movies:movies_index' %}">BACK</a>
+    <hr class="bg-light">
 <br>
-{% for rating in movie.rating_set.all %}
-    <p><a href="{% url 'accounts:detail' rating.user.pk %}">{{ rating.user.username }}</a>: {{ rating.content }} ({{ rating.score }}점)</p>
-    <form action="{% url 'movies:rating_delete' movie.pk rating.pk %}" method="POST" onclick="return confirm('삭제하시겠습니까?')">
-        {% csrf_token %}
-        <button type="submit">삭제</button>
-    </form>
+
+{% for rating in ratings %}
+<b><a href="{% url 'accounts:detail' rating.user.pk %}">{{ rating.user.username }}</a> | {{ rating.score }} </b><br>
+{{ rating.comment }}
+{% if rating.user == request.user %}
+<a href="{% url 'movies:rating_update' movie.pk rating.pk %}">EDIT</a>
+
+<form action="{% url 'movies:rating_delete' movie.pk rating.pk %}" method='POST' class="d-inline">
+    {% csrf_token %}
+    <input type="submit" value="DELETE" class='btn text-danger'/>
+</form>
+{% endif %}
+<hr class="bg-light">
 {% empty %}
-    <p>등록된 평점이 없습니다.</p>
+평점이 없습니다.
+<hr class="bg-light">
 {% endfor %}
 
-{% comment %} {% if user.is_authenticated %}
-    <form action="{% url 'movies:rating_create' movie.pk %}" method="POST">
+
+{% if user.is_authenticated %}
+    <form action="{% url 'movies:create_rating' movie.pk %}" method="POST">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">확인</button>
+        {% bootstrap_form rating_form %}
+        <!-- <button type="submit">확인</button> -->
+        <div class="d-flex justify-content-end">
+            <input type="submit" value="Submit" class="btn btn-dark"/>
+        </div>
     </form>
 {% endif %} {% endcomment %}
 
+
+<br><br><br><br>
 <script>
   const likeButton = document.querySelector('#like-button')
   likeButton.addEventListener('click', function(event) {
