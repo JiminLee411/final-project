@@ -5,11 +5,19 @@ from django.contrib.auth.decorators import login_required
 from .forms import RatingForm
 from django.contrib import messages
 
+from django.conf import settings
+from rest_framework import status
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from .serializers import GenreSerializer, MovieSerializer, RatingSerializer
+
+
 # Create your views here.
 def movies_index(request):
     movies = Movie.objects.exclude(poster_path=0)
     movies_popular = Movie.objects.order_by('id')[0:20]
     movies_vote = Movie.objects.order_by('-vote_average')[0:20]
+    print(movies_vote)
     genres = Genre.objects.all()
     keyword = request.GET.get('keyword', '')
     if keyword:
@@ -28,13 +36,8 @@ def movies_index(request):
             'genres' : genres,
         }
     return render(request, 'movies/movies_index.html', context)
-
-def genres_view(request):
-    genre = get_object_or_404(Genre, type=request.GET.get('type'))
-    return render(request, 'movies/genre.html', {'genre': genre})
-
     
-def movies_detail(request, movie_pk):
+def detail(request, movie_pk):
     movie = get_object_or_404(Movie, pk=movie_pk)
     # genres = Genre.objects.all()
     # if movie.genres == genres.name:
@@ -45,6 +48,80 @@ def movies_detail(request, movie_pk):
         'form': form
     }
     return render(request, 'movies/movies_detail.html', context)
+
+def genres_index(request):
+    genre = get_object_or_404(Genre, type=request.GET.get('type'))
+    return render(request, 'movies/genre.html', {'genre': genre})
+
+
+@api_view(["GET"])
+def genres_list(request):
+    genres = Genre.objects.all()
+    serializer = GenreSerializer(genres, many=True)
+    return Response(serializer.data)
+
+
+@api_view(["GET"])
+def genres_detail(request, pk):
+    genre = get_object_or_404(Genre, pk=pk)
+    serializer = GenreSerializer(genre)
+    return Response(serializer.data)
+
+
+@api_view(["GET"])
+def movies_list(request):
+    movies = Movie.objects.all()
+    serializer = MovieSerializer(movies, many=True)
+    return Response(serializer.data)
+
+
+@api_view(["GET"])
+def movies_detail(request, pk):
+    movie = get_object_or_404(Movie, pk=pk)
+    serializer = MovieSerializer(movie)
+    return Response(serializer.data)
+
+
+@api_view(["GET", "POST"])
+def ratings_list(request, pk):
+    movie = get_object_or_404(Movie, pk=pk)
+    if request.method == "GET":
+        ratings = movie.ratings.all()
+        serializer = RatingSerializer(ratings, many=True)
+        return Response(serializer.data)
+    else:
+        if request.user.is_authenticated:
+            request.data["movie"] = movie.id
+            request.data["user"] = request.user.id
+            serializer = RatingSerializer(data=request.data)
+            if serializer.is_valid(raise_exception=True):
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(status=status.HTTP_401_UNAUTHORIZED)
+
+
+@api_view(["GET", "DELETE", "PUT"])
+def ratings_detail(request, pk):
+    rating = get_object_or_404(Rating, pk=pk)
+    if request.method == 'GET':
+        serializer = RatingSerializer(rating)
+        return Response(serializer.data)
+    else:
+        if request.user == rating.user:
+            request.data["movie"] = rating.movie.id
+            request.data["user"] = request.user.id
+            if request.method == 'PUT':
+                serializer = RatingSerializer(rating, data=request.data)
+                if serializer.is_valid(raise_exception=True):
+                    serializer.save()
+                    return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
+            elif request.method == 'DELETE':
+                rating.delete()
+                return Response({"message": "삭제되었습니다."}, status=status.HTTP_204_NO_CONTENT)
+        else:
+            return Response(status=status.HTTP_401_UNAUTHORIZED)
+
 
 @require_POST
 def rating_create(request, movie_pk):

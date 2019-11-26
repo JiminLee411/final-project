@@ -1,9 +1,10 @@
 {% extends 'accounts/base.html' %}
 {% load static %}
 {% block app %}
+{{movies}}
 {% if not movies_popular and not movies_vote.count %}
     {% for movie in movies %}
-        <a href="{% url 'movies:movies_detail' movie.pk %}">
+        <a href="{% url 'movies:detail' movie.pk %}">
             <img src="https://image.tmdb.org/t/p/w185_and_h278_bestv2/{{ movie.poster_path }}" alt="{{ movie.title }}" style="width:24%;">
         </a>
     {% empty %}
@@ -12,7 +13,7 @@
 {% else %}
 <h1>인기순</h1>
 {% for movie in movies_popular %}
-    <a href="{% url 'movies:movies_detail' movie.pk %}">
+    <a href="{% url 'movies:detail' movie.pk %}">
         <img src="https://image.tmdb.org/t/p/w185_and_h278_bestv2/{{ movie.poster_path }}" alt="{{ movie.title }}" style="width:24%;">
     </a>
 {% empty %}
@@ -20,7 +21,7 @@
 {% endfor %}
 <h1>평점순</h1>
 {% for movie in movies_vote %}
-    <a href="{% url 'movies:movies_detail' movie.pk %}">
+    <a href="{% url 'movies:detail' movie.pk %}">
         <img src="https://image.tmdb.org/t/p/w185_and_h278_bestv2/{{ movie.poster_path }}" alt="{{ movie.title }}" style="width:24%;">
     </a>
 {% empty %}

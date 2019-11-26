@@ -28,13 +28,15 @@
           {% else %}
             <p>★★★★★</p>
           {% endif %}
+          
             <hr>
             <br><br><br>
             <div style="text-align:center; font-weight: normal;">
-                
-                <h6>감독     {{ movie.director }}</h6>
+                <h6>감독     <a href="">{{ movie.director }}</a></h6>
                 <h6>
-                    출연        
+                    출연      
+                    
+                    {% comment %} {% if movie.actor_1 == actor.actor_id %}  {% endcomment %}
                 </h6>
                 <h6>개요          
                 {{ genre.name }}    |   {{ movie.adult }}  |   {{ movie.release_date }}
@@ -43,7 +45,7 @@
 
                 <p><span id="like-count">{{ movie.like_users.count }}</span>명이 이 영화를 찜하였습니다.</p>
                 {% if user in movie.like_users.all %}
-                    <i id="like-button" data-id="{{movie.id}}" class="fas fa-heart fa-2x" style="color: red;"></i>
+                    <i id="like-button" data-id="{{ movie.id}}" class="fas fa-heart fa-2x" style="color: red;"></i>
                 {% else %}
                     <i id="like-button" data-id="{{movie.id}}" class="far fa-heart fa-2x" style="color: black;"></i>
                 {% endif %}

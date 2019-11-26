@@ -18,7 +18,7 @@
     <h3>{{ user_profile.username }}님이 작성한 평점 정보</h3>
     <ul>
         {% for review in user_profile.review_set.all %}
-            <li><a href="{% url 'movies:movies_detail' review.movie.pk %}">{{ review.movie.title }}</a>: {{ review.score }}점
+            <li><a href="{% url 'movies:detail' review.movie.pk %}">{{ review.movie.title }}</a>: {{ review.score }}점
             <a href="{% url 'movies:update_score' review.pk %}">
                 <button>수정하기</button>
             </a>
@@ -31,7 +31,7 @@
     <h3>{{ user_profile.username }}님이 좋아하는 영화 정보</h3>
     <ul>
         {% for movie in user_profile.like_movies.all %}
-            <li><a href="{% url 'movies:movies_detail' movie.pk %}">{{ movie.title }}</a> ({{ movie.genre.name }})</li>
+            <li><a href="{% url 'movies:detail' movie.pk %}">{{ movie.title }}</a> ({{ movie.genre.name }})</li>
         {% empty %}
             <li>좋아하는 영화가 없습니다.</li>
         {% endfor %}
