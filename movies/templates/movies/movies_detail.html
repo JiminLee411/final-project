@@ -6,38 +6,43 @@
         <tr> <!-- table row(행) -->
           <th></th> <!-- table header -->
           <th>
-              <img src="https://image.tmdb.org/t/p/w185_and_h278_bestv2/{{ movie.poster_path }}" alt="{{ movie.title }}" style="width:25vw; margin-right: 20px;"></th> <!-- font-wieght: bold 적용-->
-          <th><h1>{{ movie.title }}</h1>
+              <img src="https://image.tmdb.org/t/p/w185_and_h278_bestv2/{{ movie.poster_path }}" alt="{{ movie.title }}" style="width:450px; margin-right: 20px;"></th>
+          <th style="margin-left: 30px; text-align: center;"><h1>{{ movie.title }}</h1>
+          {% comment %} {% if movie.vote_average <= 2 %}
+            <i class="fas fa-star"></i>
+            {% elif movie.vote_average >4 and movie.vote_average <=6 %}
+            <i class="fas fa-star"></i><i class="fas fa-star"></i>
+            {% endif %} {% endcomment %}
+          
+          
+          
+          <p>{{ movie.vote_average }}</p>
             <hr>
-            <p>관객수: {{ movie.popularity }}십만 명</p>
-            <p>장르: {{ movie.genre.name}}</p>
-            <p>줄거리: {{ movie.overview }}</p></th>
+            <br><br><br>
+            <div style="text-align:center; font-weight: normal;">
+                <h6>감독     {{ movie.director }}</h6>
+                <h6>
+                    출연        
+                </h6>
+                <h6>개요          
+                {{ genre.name }}    |   {{ movie.adult }}  |   {{ movie.release_date }}
+                </h6><br>
+
+                <p><span id="like-count">{{ movie.like_users.count }}</span>명이 이 영화를 찜하였습니다.</p>
+                {% if user in movie.like_users.all %}
+                    <i id="like-button" data-id="{{movie.id}}" class="fas fa-heart fa-2x" style="color: red;"></i>
+                {% else %}
+                    <i id="like-button" data-id="{{movie.id}}" class="far fa-heart fa-2x" style="color: black;"></i>
+                {% endif %}
+                <br><br><br>
+                <p>{{ movie.overview }}</p></th><br>
+            </div>
         </tr>
       </thead>
 </table>
-<hr>
-
-{% if user.is_authenticated %}
-    <form action="{% url 'movies:like' movie.pk %}" method="POST">
-        {% csrf_token %}
-        <button type="submit">좋아요
-        {% if movie in user.like_movies.all %}
-        {% endif %}
-        ({{ movie.like_users.count }})
-        </button>
-    </form>
-{% endif %}
-
-<p><span id="like-count">{{ movie.like_users.count }}</span>명이 이 글을 좋아합니다.</p>
-  {% if user in movie.like_users.all %}
-  <a>
-  <i id="like-button" data-id="{{movie.id}}" class="fas fa-heart fa-2x" style="color: red;"></i>
-  
-  {% else %}
-  <i id="like-button" data-id="{{movie.id}}" class="far fa-heart fa-2x" style="color: black;"></i>
-  {% endif %}
-
-<hr>
+<br>
+<br>
+<br>
 {% for rating in movie.rating_set.all %}
     <p><a href="{% url 'accounts:detail' rating.user.pk %}">{{ rating.user.username }}</a>: {{ rating.content }} ({{ rating.score }}점)</p>
     <form action="{% url 'movies:rating_delete' movie.pk rating.pk %}" method="POST" onclick="return confirm('삭제하시겠습니까?')">
@@ -55,4 +60,29 @@
         <button type="submit">확인</button>
     </form>
 {% endif %}
+
+<script>
+  const likeButton = document.querySelector('#like-button')
+  likeButton.addEventListener('click', function(event) {
+    console.log(event.target.dataset)
+    axios.defaults.xsrfCookieName = 'csrftoken'
+    axios.defaults.xsrfHeaderName = 'X-CSRFToken'
+    axios.defaults.headers.common['X-REQUESTED-WITH'] = 'XMLHttpRequest'
+    axios.post(`/movies/${event.target.dataset.id}/like/`)
+      .then(response => {
+          const likeCount = document.querySelector('#like-count')
+          if (response.data.is_liked) {
+            event.target.classList.remove('far')
+            event.target.classList.add('fas')
+          } else {
+            event.target.classList.remove('fas')
+            event.target.classList.add('far')
+          }
+          likeCount.innerText = response.data.like_count
+        })
+      .catch(error => {
+        console.log(error)
+      })
+    })
+</script>
 {% endblock %}
