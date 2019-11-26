@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Genre, Movie, Rating
+from .models import Genre, Movie, Rating, Actor
 from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
 from .forms import RatingForm
@@ -39,13 +39,27 @@ def movies_index(request):
     
 def detail(request, movie_pk):
     movie = get_object_or_404(Movie, pk=movie_pk)
+    genre = Genre.objects.filter(genre_id=movie.genres)
+    actors = Actor.objects.all()
+    form = RatingForm()
     ratings = movie.rating_set.all()
+
+    MovieActors = []
+    if len(actors) >= 5:
+        for i in range(5):
+            MovieActors.append(actors[i])
+    else:
+        for j in actors:
+            MovieActors.append(actors[j])
+    
     # genres = Genre.objects.all()
     # if movie.genres == genres.name:
 
     rating_form = RatingForm()
     context = {
+        'genre_name' : genre[0],
         'movie': movie,
+        'MovieActors' : MovieActors,
         'ratings': ratings,
         'rating_form': rating_form
     }
