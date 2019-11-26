@@ -26,20 +26,6 @@
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="{% url 'accounts:delete' user.pk %}">회원탈퇴</a>
           </div>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" text-align='right'>
-            장르
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <div class="dropdown">
-              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <div v-for="genre in genres">
-                  <a class="dropdown-item" :href="#">{{ genre.name }}</a> 
-                </div>
-              </div>
-            </div>
-          </div>
         </li>        
 
         <!-- 로그인이 되어 있지 않다면, -->
@@ -55,7 +41,7 @@
     
     <form action="{% url 'movies:movies_index' %}" class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2" type="text" name="keyword" placeholder="영화 제목 검색" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Search</button>
     </form>
   </div>
   
