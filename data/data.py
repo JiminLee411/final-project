@@ -27,7 +27,8 @@ for page in range(1,36):
                 'movie_id': popularInfo['id'],
                 'movie_title': popularInfo['title']
             }
-        
+
+    for movie in range(20):    
         if topRateInfo['id'] not in movieList:
             movieList.append(topRateInfo['id'])
             movieDict[topRateInfo['id']] = {
@@ -49,12 +50,13 @@ movieInfos = {}
 movieGenres = {}
 actors = []
 
+cnt = 1
 for movie in range(len(movieList)):
     api_url = f'https://api.themoviedb.org/3/movie/{movieList[movie]}?api_key={api_key}&language=ko-KR'
     response = requests.get(api_url).json()
     movieDetail = response
-    movieInfos[movieList[movie]] = {
-        'id': movieList[movie],
+    movieInfos[cnt] = {
+        'id': cnt,
         'adult': response['adult'] if response['adult'] else None,
         'budget': response['budget'] if response['budget'] else None,
         'genres': None,
@@ -78,9 +80,9 @@ for movie in range(len(movieList)):
         'file_path_2': None,
         'file_path_3': None,
     }
-
+    
     for genre in range(len(response['genres'])):
-        movieInfos[movieList[movie]]['genres'] = response['genres'][genre]['id']
+        movieInfos[cnt]['genres'] = response['genres'][genre]['id']
 
     api_url = f'https://api.themoviedb.org/3/movie/{movieList[movie]}/credits?api_key={api_key}'
     response = requests.get(api_url).json()
@@ -96,12 +98,12 @@ for movie in range(len(movieList)):
                         'actor_id': actorInfo[actorIndex]['id'],
                         'actor_name': actorInfo[actorIndex]['name']
                     })
-                movieInfos[movieList[movie]][f'actor_{actorIndex+1}'] = actorInfo[actorIndex]['id']
+                movieInfos[cnt][f'actor_{actorIndex+1}'] = actorInfo[actorIndex]['id']
                             
     if crewInfo:
         for crew in crewInfo:
             if crew['job'] == 'Director':
-                movieInfos[movieList[movie]]['director'] = crew['name']
+                movieInfos[cnt]['director'] = crew['name']
 
     api_url = f'https://api.themoviedb.org/3/movie/{movieList[movie]}/images?api_key={api_key}'         
     response = requests.get(api_url).json()
@@ -110,7 +112,9 @@ for movie in range(len(movieList)):
     val = 3 if len(imgInfo) >= 3 else len(imgInfo)
 
     for imgIndex in range(val):
-        movieInfos[movieList[movie]][f'file_path_{imgIndex+1}'] = imgInfo[imgIndex]['file_path']
+        movieInfos[cnt][f'file_path_{imgIndex+1}'] = imgInfo[imgIndex]['file_path']
+
+    cnt += 1
 
 with open('data/movie.csv', 'w', encoding='utf-8', newline='') as f:
     fieldnames = ('id','adult', 'budget', 'genres', 'original_title', 'overview', 'popularity', 'poster_path', 'release_date', 'revenue', 'runtime', 'tagline', 'title', 'vote_average', 'actor_1', 'actor_2', 'actor_3', 'actor_4', 'actor_5', 'director', 'file_path_1', 'file_path_2', 'file_path_3')
