@@ -16,7 +16,7 @@
           
           
           
-          {% comment %} <p>{{ movie.vote_average }}</p> {% endcomment %}
+          <p>{{ movie.vote_average }}</p>
           {% if movie.vote_average <= 2 %}
             <p>★</p>
           {% elif movie.vote_average <= 4 %}
@@ -41,6 +41,7 @@
                 <h6>개요          
                 {{ genre.name }}    |   {{ movie.adult }}  |   {{ movie.release_date }}
                 </h6><br>
+
 
                 <p><span id="like-count">{{ movie.like_users.count }}</span>명이 이 영화를 찜하였습니다.</p>
                 {% if user in movie.like_users.all %}
