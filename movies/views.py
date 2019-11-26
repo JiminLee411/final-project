@@ -28,6 +28,9 @@ def genres_view(request):
     
 def movies_detail(request, movie_pk):
     movie = get_object_or_404(Movie, pk=movie_pk)
+    # genres = Genre.objects.all()
+    # if movie.genres == genres.name:
+
     form = RatingForm()
     context = {
         'movie': movie,
