@@ -7,7 +7,7 @@ from django.contrib import messages
 
 # Create your views here.
 def movies_index(request):
-    movies = Movie.objects.all()
+    movies = Movie.objects.exclude(poster_path=0)
     genres = Genre.objects.all()
     keyword = request.GET.get('keyword', '')
     if keyword:
