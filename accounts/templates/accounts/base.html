@@ -46,7 +46,6 @@
   </div>
   {% endfor %}
   {% endif %}
-  {% include '_nav.html' %}
   <div id="app">
     {% block app %}{% endblock %}
   </div>
@@ -61,7 +60,5 @@
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
   {% include '_footer.html' %}
-  {% block script %}
-  {% endblock %}
 </body>
 </html>

@@ -7,10 +7,10 @@
           <th></th> <!-- table header -->
           <th>
               <img src="https://image.tmdb.org/t/p/w185_and_h278_bestv2/{{ movie.poster_path }}" alt="{{ movie.title }}" style="width:25vw; margin-right: 20px;"></th> <!-- font-wieght: bold 적용-->
-          <th><h1>{{ movie.title }}</h1>
+          <th><h3>제목: {{ movie.title }}</h3>
             <hr>
-            <p>관객수: {{ movie.popularity }}십만 명</p>
-            <p>장르: {{ movie.genre.name}}</p>
+            <p>관객수: {{ movie.popularity }}명</p>
+            <p>장르: {{ movie.genre.name }}</p>
             <p>줄거리: {{ movie.overview }}</p></th>
         </tr>
       </thead>
