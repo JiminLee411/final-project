@@ -1,3 +1,4 @@
+#-*- coding: utf-8 -*-
 # csv2json.py
 #
 # Copyright 2009 Brian Gershon -- briang at webcollective.coop
@@ -23,8 +24,10 @@ import re
 import sys
 
 
+
+
 # Options
-ENCODING = 'utf-8'
+ENCODING = 'UTF-8'
 CSV_DELIMITER = ','
 
 # Check arguments
@@ -46,7 +49,7 @@ out_file = os.path.dirname(__file__) + output_name
 
 # Convert
 print('Converting %s from CSV to JSON as %s' % (in_file, out_file))
-with codecs.open(in_file, 'r', encoding=ENCODING) as f:
+with codecs.open(in_file, 'r', encoding='utf-8') as f:
 
     reader = csv.reader(f, delimiter=CSV_DELIMITER)
 
@@ -77,6 +80,7 @@ with codecs.open(in_file, 'r', encoding=ENCODING) as f:
                 fields[header_row[i+1]] = active_field.strip()
 
         row_dict = {}
+        print(pk)
         row_dict['pk'] = int(pk)
         row_dict['model'] = model_name
         row_dict['fields'] = fields
@@ -84,6 +88,6 @@ with codecs.open(in_file, 'r', encoding=ENCODING) as f:
 
 f.close()
 
-with open(out_file, 'w') as fo:
+with open(out_file, 'w', encoding='utf-8') as fo:
     fo.write('%s' % json.dumps(entries, indent=4, ensure_ascii=False))
 fo.close()
