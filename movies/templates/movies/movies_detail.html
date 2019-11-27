@@ -7,13 +7,13 @@
         <tr> <!-- table row(행) -->
           <th></th> <!-- table header -->
           <th>
-              <img src="https://image.tmdb.org/t/p/w185_and_h278_bestv2/{{ movie.poster_path }}" alt="{{ movie.title }}" style="width:450px; margin-right: 20px;"></th>
+              <img src="https://image.tmdb.org/t/p/w500/{{ movie.poster_path }}" alt="{{ movie.title }}" style="width:450px; margin-right: 20px;"></th>
           <th style="margin-left: 30px; text-align: center;"><h1>{{ movie.title }}</h1>
-          {% comment %} {% if movie.vote_average <= 2 %}
+          {% if movie.vote_average <= 2 %}
             <i class="fas fa-star"></i>
-            {% elif movie.vote_average >4 and movie.vote_average <=6 %}
+            {% elif movie.vote_average > 4 and movie.vote_average <= 6 %}
             <i class="fas fa-star"></i><i class="fas fa-star"></i>
-            {% endif %} {% endcomment %}
+            {% endif %}
           
           
           
@@ -53,12 +53,12 @@
                 <i id="like-button" data-id="{{user.id}}" class="far fa-heart fa-2x" style="color: black;"></i>
                 {% endif %}
 
-                {% comment %} <p><span id="like-count">{{ movie.like_users.count }}</span>명이 이 영화를 찜하였습니다.</p>
+                <p><span id="like-count">{{ movie.like_users.count }}</span>명이 이 영화를 찜하였습니다.</p>
                 {% if user in movie.like_users.all %}
                     <i id="like-button" data-id="{{ movie.id}}" class="fas fa-heart fa-2x" style="color: red;"></i>
                 {% else %}
                     <i id="like-button" data-id="{{movie.id}}" class="far fa-heart fa-2x" style="color: black;"></i>
-                {% endif %} {% endcomment %}
+                {% endif %}
                 <br><br><br>
                 <p>{{ movie.overview }}</p></th><br>
             </div>
@@ -98,7 +98,7 @@
             <input type="submit" value="Submit" class="btn btn-dark"/>
         </div>
     </form>
-{% endif %} {% endcomment %}
+{% endif %}
 
 
 <br><br><br><br>

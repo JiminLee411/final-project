@@ -17,7 +17,6 @@ def movies_index(request):
     movies = Movie.objects.exclude(poster_path=0)
     movies_popular = Movie.objects.order_by('id')[0:20]
     movies_vote = Movie.objects.order_by('-vote_average')[0:20]
-    print(movies_vote)
     genres = Genre.objects.all()
     keyword = request.GET.get('keyword', '')
     if keyword:
