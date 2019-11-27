@@ -14,11 +14,19 @@
     {% endfor %}
 
     {% else %}
+    {% if user.is_authenticated %}
     <i class="fas fa-video fa-2x" style="color: #fff; margin-bottom: 0.7rem;"></i>
     <h1>내가 찜한 영화들</h1>
-    {% if authenticated %}
+    
     <i class="fas fa-video fa-2x" style="color: #fff; margin-bottom: 0.7rem;"></i>
     <h1>{{request.user}}님의 취향저격 베스트 영화</h1>
+    {% for will_like in will_likes %}
+    <a href="{% url 'movies:detail' will_like.pk %}">
+            <img src="https://image.tmdb.org/t/p/w500/{{ will_like.poster_path }}" alt="{{ will_like.title }}"
+                style="width:24%; margin-top: 50px;">
+        </a>
+    {% endfor %}
+    <br><br><br>
     {% endif %}
     <i class="fas fa-video fa-2x" style="color: #fff; margin-bottom: 0.7rem;"></i>
     <h1>MovieBuddy 인기 영화</h1>

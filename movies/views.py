@@ -21,6 +21,12 @@ def movies_index(request):
     movies_popular = Movie.objects.order_by('id')[0:20]
     movies_vote = Movie.objects.order_by('-vote_average')[0:20]
     genres = Genre.objects.all()
+    people = request.user.followers.all()
+    will_likes = []
+    for person in people:
+        ratings = person.rating_set.filter(score__lt=6)
+    for rate in ratings:
+        will_likes.append(rate.movie)
     keyword = request.GET.get('keyword', '')
     if keyword:
         movies = movies.filter(title__icontains=keyword)
@@ -37,6 +43,7 @@ def movies_index(request):
             'movies_vote' : movies_vote,
             'movies': None,
             'genres' : genres,
+            'will_likes': will_likes,
         }
     return render(request, 'movies/movies_index.html', context)
     
