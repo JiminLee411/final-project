@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'accounts/base.html' %}
 {% load static %}
 {% load humanize %}
 {% block app %}
@@ -8,10 +8,12 @@
             <div class="container">
                 <div class="tags">
                     <span class="tag is-white" v-for="genre in genreList"
-                        :class="{ 'is-info': genre.type === selectedGenre }">
+                        :class="{ 'is-info': genre.name === selectedGenre }">
                         <a @click="getMovieList(genre)">
-                            [[ genre.type ]]
-                        </a>
+                                [[ genre.name ]]
+                              </a>
+                              <a :href="getGenreUrl([[genre.name]])">
+                                </a>
                     </span>
                 </div>
                 <h1 class="title is-2" v-text="selectedGenre" style="font-family: 'Gugi'"></h1>
@@ -19,39 +21,32 @@
         </div>
     </section>
     <section>
+        
         <div class="container">
             <div class="columns is-multiline is-variable is-5" style="padding-left: 1rem; padding-right: 1rem;">
-                <div class="column is-one-third" style="margin-bottom: 2rem;" v-for="movie in movies">
-                    <a :href="getDetailUrl(movie)">
-                        <div class="card genre-card" style="border-radius: 10px;">
-                            <div class="card-image">
-                                <figure class="image">
-                                    <img style="max-width: 300; border-radius: 10px 10px 0 0;" :src="movie.poster_url"
-                                        :alt="movie.title">
-                                </figure>
-                            </div>
+                <div class="column is-one-third" style="margin-bottom: 2rem;">
+                    {% for movie in movies %}
+                    <a href="{% url 'movies:detail' movie.pk}">
+                        <div class="card genre-card" style="border-radius: 10px;"></div>
                             <div class="card-content">
                                 <div class="media">
                                     <div class="media-content">
-                                        <p class="title is-4 movie-title">[[ movie.title ]]</p>
-                                        <small>[[ movie.release ]] 개봉</small>
+                                        <img style="max-width: 200; border-radius: 10px 10px 0 0;" src="https://image.tmdb.org/t/p/w500/{{ movie.poster_path }}" alt="{{ movie.title }}">
+                                        <small>{{ movie.release_date }} 개봉</small>
                                         <br />
-                                        <small>[[ movie.film_rating ]]</small> &bull;
-                                        <small><i class="fas fa-users"></i> [[ movie.audience.toLocaleString()
-                                            ]]명</small>
+                                        <small>{{ movie.vote_average }}</small> &bull;
+                                        <small><i class="fas fa-users"></i> {{ movie.popularity.toLocaleString()
+                                            }}명</small>
                                     </div>
                                 </div>
                                 <div class="content">
-                                    <small style="margin-bottom: 0">감독 : [[ movie.director ]]</small>
+                                    <small style="margin-bottom: 0">감독 : {{ movie.director }}</small>
                                     <br />
-                                    <small style="margin-bottom: 0">배우 :
-                                        [[ [movie.actor1,movie.actor2,movie.actor3].filter(e => e !== "").join(', ')
-                                        ]]
-                                    </small>
                                 </div>
                             </div>
                         </div>
                     </a>
+                    {% endfor %}
                 </div>
             </div>
         </div>
@@ -61,7 +56,7 @@
 
 {% block script %}
 <script>
-    const passedGenre = '{{ genre.type }}';
+    const passedGenre = '{{ genre.name }}';
     const genre = new Vue({
         el: '#genre',
         delimiters: ['[[', ']]'],
@@ -77,22 +72,21 @@
                     this.genres = res.data;
                     res.data.forEach(genre => this.genreList.push({
                         id: genre.id,
-                        type: genre.type
+                        name: genre.name
                     }));
                 });
             let url = "{% url 'movies:genres_detail' genre.id %}";
             axios.get(url)
                 .then(res => this.movies = res.data.movies);
+            console.log(this.movies)
         },
         methods: {
-            getDetailUrl: function (movie) {
-                const url = "{% url 'movies:movies_view' 123456 %}".replace('123456', movie.id);
-                return url
+            getGenreUrl: function (genreCard) {
+                return "{% url 'movies:genres_index'%}"+`?name=${genreCard.name}`
             },
             getMovieList: function (genre) {
-                this.selectedGenre = genre.type;
-                this.movies = this.genres[genre.id - 1].movies;
-                history.replaceState({}, 'ㅁㅂ', `/genres/?type=${this.selectedGenre}`);
+                this.selectedGenre = genre.name;
+                history.replaceState({}, {}, `/genres/?name=${this.selectedGenre}`);
             },
         }
     })

@@ -9,7 +9,7 @@ from django.conf import settings
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .serializers import GenreSerializer, MovieSerializer, RatingSerializer
+from .serializers import GenreSerializer, MovieSerializer, RatingSerializer, ActorSerializer
 
 
 # Create your views here.
@@ -22,6 +22,7 @@ def movies_index(request):
     if keyword:
         movies = movies.filter(title__icontains=keyword)
         context = {
+            'keyword': keyword,
             'movies_popular' : None,
             'movies_vote' : None,
             'movies': movies,
@@ -65,8 +66,9 @@ def detail(request, movie_pk):
     return render(request, 'movies/movies_detail.html', context)
 
 def genres_index(request):
-    genre = get_object_or_404(Genre, type=request.GET.get('type'))
-    return render(request, 'movies/genre.html', {'genre': genre})
+    genre = get_object_or_404(Genre, name=request.GET.get('name'))
+    movies = Movie.objects.order_by('id').filter(genres=genre.genre_id)[0:5]
+    return render(request, 'movies/genre.html', {'genre': genre, 'movies': movies})
 
 @api_view(["GET"])
 def movies_list(request):
@@ -86,11 +88,11 @@ def actors_list(request):
     serializer = ActorSerializer(actors, many=True)
     return Response(serializer.data)
 
-# @api_view(["GET"])
-# def genres_detail(request, pk):
-#     genre = get_object_or_404(Genre, pk=pk)
-#     serializer = GenreSerializer(genre)
-#     return Response(serializer.data)
+@api_view(["GET"])
+def genres_detail(request, pk):
+    genre = get_object_or_404(Genre, pk=pk)
+    serializer = GenreSerializer(genre)
+    return Response(serializer.data)
 
 @api_view(["GET"])
 def movies_detail(request, movie_pk):
@@ -132,6 +134,8 @@ def create_rating(request, movie_pk):
             rating.user = request.user
             rating.movie_id = movie_pk
             rating.save()
+    else:
+        messages.success(request, '이미 등록한 평점이 있습니다.')
     return redirect('movies:detail', movie_pk)
 
 @login_required
