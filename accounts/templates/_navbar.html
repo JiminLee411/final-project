@@ -14,28 +14,30 @@
       {% if user.is_authenticated %}
       <!-- 로그인이 되어 있는지 확인하는 method -->
 
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false">
-          {{user.username}}
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="{% url 'accounts:detail' user.pk %}">프로필</a>
-          <a class="dropdown-item" href="{% url 'accounts:update' %}">회원정보 수정</a>
-          <a class="dropdown-item" href="{% url 'accounts:password_change' %}">비밀번호 변경</a>
-          <a class="dropdown-item" href="{% url 'accounts:logout' %}">로그아웃</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="{% url 'accounts:delete' user.pk %}">회원탈퇴</a>
-        </div>
-      </li>
-      <!-- 로그인이 되어 있지 않다면, -->
-      {% else %}
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'accounts:signup' %}"> 회원가입</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'accounts:login' %}"> 로그인</a>
-      </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{user.username}}
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="{% url 'accounts:detail' user.pk %}">프로필</a>
+            <a class="dropdown-item" href="{% url 'accounts:update' %}">회원정보 수정</a>
+            <a class="dropdown-item" href="{% url 'accounts:password_change' %}">비밀번호 변경</a>
+            <a class="dropdown-item" href="{% url 'accounts:logout' %}">로그아웃</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="{% url 'accounts:delete' user.pk %}">회원탈퇴</a>
+          </div>
+          <a href="{% url 'movies:myfavorite' %}">
+            <p>내가 찜한 영화</p>
+          </a>
+        </li>
+        <!-- 로그인이 되어 있지 않다면, -->
+        {% else %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'accounts:signup' %}"> 회원가입</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'accounts:login' %}"> 로그인</a>
+        </li>
       {% endif %}
     </ul>
 

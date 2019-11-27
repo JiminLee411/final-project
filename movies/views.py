@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Genre, Movie, Rating, Actor
 from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import get_user_model
 from .forms import RatingForm
 from django.contrib import messages
 from django.http import HttpResponseForbidden, HttpResponse, JsonResponse
@@ -218,3 +219,13 @@ def like(request, movie_pk):
         request.user.like_movies.add(movie)
         is_liked = True
     return JsonResponse({'is_liked': is_liked, 'likers': movie.like_users.count()})
+
+@login_required
+def myfavorite(request):
+    movie = Movie.objects.all()
+    movies = request.user.like_movies.all()
+    context = {
+        'movies' : movies    
+    }
+    return render(request, 'movies/myfavorite.html', context)
+
