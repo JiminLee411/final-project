@@ -71,7 +71,16 @@
 {% endif %}
 <hr>
 <h3 class="text-center">평점을 남겼던 영화</h3>
-
+  <div class="container">
+    <div class="row">
+      <div class="col-4">
+        <div class="bg-primary text-center text-white">
+        <a href="{% url 'movies:detail' rating.movie.pk %}">
+        <img src="https://image.tmdb.org/t/p/w500/{{rating.movie.poster_path}}" class="card-img-top"
+                    alt="{{rating.movie.title}}" style="width: 100%; height: 100%;"></a>
+        </div>
+      </div>
+    </div>
 <div class="row d-flex justify-content-center">
     {% for rating in user_profile.rating_set.all %}
     <div class="col-xl-2 col-lg-4 col-12">
