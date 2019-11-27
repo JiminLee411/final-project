@@ -1,10 +1,131 @@
 {% extends 'accounts/base.html' %}
 {% load static %}
+
+<style>
+	* {
+  margin: 0;
+  padding: 0;
+}
+html,
+body {
+  height: 100%;
+  /* for touch screen laptop */
+  touch-action: none; 
+}
+body {
+  overflow: hidden;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  background: #111;
+  -webkit-perspective: 1000px;
+          perspective: 1000px;
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+}
+#drag-container, #spin-container {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin: auto;
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+  -webkit-transform: rotateX(-10deg);
+          transform: rotateX(-10deg);
+}
+#drag-container img, #drag-container video {
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  line-height: 200px;
+  font-size: 50px;
+  text-align: center;
+  -webkit-box-shadow: 0 0 8px #fff;
+          box-shadow: 0 0 8px #fff;
+  -webkit-box-reflect: below 10px linear-gradient(transparent, transparent, #0005);
+}
+#drag-container img:hover, #drag-container video:hover {
+  -webkit-box-shadow: 0 0 15px #fffd;
+          box-shadow: 0 0 15px #fffd;
+  -webkit-box-reflect: below 10px linear-gradient(transparent, transparent, #0007);
+}
+#drag-container p {
+  font-family: Serif;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  -webkit-transform: translate(-50%,-50%) rotateX(90deg);
+          transform: translate(-50%,-50%) rotateX(90deg);
+  color: #fff;
+}
+#ground {
+  width: 900px;
+  height: 900px;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  -webkit-transform: translate(-50%,-50%) rotateX(90deg);
+          transform: translate(-50%,-50%) rotateX(90deg);
+  background: -webkit-radial-gradient(center center, farthest-side , #9993, transparent);
+}
+#music-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+@-webkit-keyframes spin {
+  from{
+    -webkit-transform: rotateY(0deg);
+            transform: rotateY(0deg);
+  } to{
+    -webkit-transform: rotateY(360deg);
+            transform: rotateY(360deg);
+  }
+}
+@keyframes spin {
+  from{
+    -webkit-transform: rotateY(0deg);
+            transform: rotateY(0deg);
+  } to{
+    -webkit-transform: rotateY(360deg);
+            transform: rotateY(360deg);
+  }
+}
+@-webkit-keyframes spinRevert {
+  from{
+    -webkit-transform: rotateY(360deg);
+            transform: rotateY(360deg);
+  } to{
+    -webkit-transform: rotateY(0deg);
+            transform: rotateY(0deg);
+  }
+}
+@keyframes spinRevert {
+  from{
+    -webkit-transform: rotateY(360deg);
+            transform: rotateY(360deg);
+  } to{
+    -webkit-transform: rotateY(0deg);
+            transform: rotateY(0deg);
+  }
+}
+</style>
+
+
 {% block app %}
 
 {% if not movies_popular and not movies_vote.count %}
+<<<<<<< HEAD
+<h1>{{ keyword }} 검색 결과 총 {{movies.count}} 개</h1>
+=======
 <i class="fas fa-video fa-2x" style="color: #fff; margin-bottom: 0.7rem;"></i>
 <h1>{{keyword}} 검색 결과 총 {{movies.count}} 개</h1>
+>>>>>>> 6f071b8904ac9944385929160c48fbca00e9f532
 {% for movie in movies %}
 <a href="{% url 'movies:detail' movie.pk %}">
     <img src="https://image.tmdb.org/t/p/w500/{{ movie.poster_path }}" alt="{{ movie.title }}"
@@ -17,6 +138,35 @@
 {% else %}
 <i class="fas fa-video fa-2x" style="color: #fff; margin-bottom: 0.7rem;"></i>
 <h1>인기순</h1>
+
+<div id="drag-container">
+  <div id="spin-container">
+    
+    <img src="https://images.pexels.com/photos/206395/pexels-photo-206395.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="">
+    <img src="https://images.pexels.com/photos/1391498/pexels-photo-1391498.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="">
+    <img src="https://images.pexels.com/photos/1382731/pexels-photo-1382731.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="">
+    <img src="https://images.pexels.com/photos/1758144/pexels-photo-1758144.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="">
+    <img src="https://images.pexels.com/photos/1382734/pexels-photo-1382734.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="">
+    <img src="https://images.pexels.com/photos/1462636/pexels-photo-1462636.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="">
+    
+    
+    <a target="_blank" href="https://images.pexels.com/photos/139829/pexels-photo-139829.jpeg">
+      <img src="https://images.pexels.com/photos/139829/pexels-photo-139829.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="">
+    </a>
+
+    
+    <video controls autoplay="autoplay" loop>
+      <source src="https://player.vimeo.com/external/322244668.sd.mp4?s=338c48ac2dfcb1d4c0689968b5baf94eee6ca0c1&profile_id=165&oauth2_token_id=57447761" type="video/mp4">
+    </video>
+
+    
+    <p>3D Tiktok Carousel</p>
+  </div>
+  <div id="ground"></div>
+</div>
+
+<div id="music-container"></div>
+
 
 {% for movie in movies_popular %}
 <a href="{% url 'movies:detail' movie.pk %}">
@@ -31,7 +181,7 @@
 <h1>평점순</h1>
 {% for movie in movies_vote %}
 <a href="{% url 'movies:detail' movie.pk %}">
-    <img src="https://image.tmdb.org/t/p/w500/{{ movie.poster_path }}" alt="{{ movie.title }}" style="width:24%;">
+    <img src="https://image.tmdb.org/t/p/w500/{{ movie.poster_path }}" alt="{{ movie.title }}" style="width:24%; margin-top: 50px;">
 </a>
 {% empty %}
 <p>등록된 영화가 없습니다.</p>
@@ -39,14 +189,14 @@
 {% endif %}
 
 <div style="padding-top: 4rem; padding-bottom: 5rem;">
-        <section class="section" style="padding-bottom: 10rem;">
-            <div class="container has-text-centered">
-                <i class="fas fa-video fa-2x" style="color: #fff; margin-bottom: 0.7rem;"></i>
-                <h1 style="margin-bottom: 1.5rem;">장르별 영화</h1>
-            </div>
-            {% include 'movies/_genre-cards.html' %}
-        </section>
-    </div>
+    <section class="section" style="padding-bottom: 10rem;">
+        <div class="container has-text-centered">
+            <i class="fas fa-video fa-2x" style="color: #fff; margin-bottom: 0.7rem;"></i>
+            <h1 style="margin-bottom: 1.5rem;">장르별 영화</h1>
+        </div>
+        {% include 'movies/_genre-cards.html' %}
+    </section>
+</div>
 
 <br><br><br><br>
 {% endblock %}
@@ -90,4 +240,5 @@
         }
     })
 </script>
+<script src="{% static 'js/3d.js' %}"></script>
 {% endblock %}
