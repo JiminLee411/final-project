@@ -208,13 +208,11 @@ def like(request, movie_pk):
     # 좋아요를 누른적이 있다면?
     is_liked = True
     if movie in request.user.like_movies.all():
-        print('싫어요싫어요')
         # 좋아요 취소 로직
         request.user.like_movies.remove(movie)
         is_liked = False
     # 아니면
     else:
-        print('좋아요좋아요')
         # 좋아요 로직
         request.user.like_movies.add(movie)
         is_liked = True

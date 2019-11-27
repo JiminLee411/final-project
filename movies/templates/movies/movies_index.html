@@ -15,7 +15,13 @@
 
     {% else %}
     <i class="fas fa-video fa-2x" style="color: #fff; margin-bottom: 0.7rem;"></i>
-    <h1>인기순</h1>
+    <h1>내가 찜한 영화들</h1>
+    {% if authenticated %}
+    <i class="fas fa-video fa-2x" style="color: #fff; margin-bottom: 0.7rem;"></i>
+    <h1>{{request.user}}님의 취향저격 베스트 영화</h1>
+    {% endif %}
+    <i class="fas fa-video fa-2x" style="color: #fff; margin-bottom: 0.7rem;"></i>
+    <h1>MovieBuddy 인기 영화</h1>
     {% for movie in movies_popular %}
     <a href="{% url 'movies:detail' movie.pk %}">
         <img src="https://image.tmdb.org/t/p/w500/{{ movie.poster_path }}" alt="{{ movie.title }}" style="width:24%;">
@@ -26,7 +32,7 @@
 
     <br><br><br>
     <i class="fas fa-video fa-2x" style="color: #fff; margin-bottom: 0.7rem;"></i>
-    <h1>평점순</h1>
+    <h1>MovieBuddy 평점순 영화</h1>
     {% for movie in movies_vote %}
     <a href="{% url 'movies:detail' movie.pk %}">
         <img src="https://image.tmdb.org/t/p/w500/{{ movie.poster_path }}" alt="{{ movie.title }}"
