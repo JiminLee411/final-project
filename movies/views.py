@@ -11,6 +11,7 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .serializers import GenreSerializer, MovieSerializer, RatingSerializer, ActorSerializer
+from django.contrib.auth import get_user_model
 
 
 # Create your views here.
@@ -40,6 +41,7 @@ def movies_index(request):
     
 def detail(request, movie_pk):
     movie = get_object_or_404(Movie, pk=movie_pk)
+    movies = request.user.like_movies.all()
     genre = Genre.objects.filter(genre_id=movie.genres)
     actors = Actor.objects.all()
     form = RatingForm()
@@ -58,6 +60,7 @@ def detail(request, movie_pk):
 
     rating_form = RatingForm()
     context = {
+        'movies': movies,
         'genre_name' : genre[0],
         'movie': movie,
         'MovieActors' : MovieActors,
@@ -204,11 +207,13 @@ def like(request, movie_pk):
     # 좋아요를 누른적이 있다면?
     is_liked = True
     if movie in request.user.like_movies.all():
+        print('싫어요싫어요')
         # 좋아요 취소 로직
         request.user.like_movies.remove(movie)
         is_liked = False
     # 아니면
     else:
+        print('좋아요좋아요')
         # 좋아요 로직
         request.user.like_movies.add(movie)
         is_liked = True

@@ -10,9 +10,9 @@
                 <div>
                     <span class="tag is-white" v-for="genre in genreList"
                         :class="{ 'is-info': genre.name === selectedGenre }">
-                            <a :href=`/movies/genres/?name=${genre.name}`>
-                                <button type="button" class="btn btn-light mt-2">[[ genre.name ]]</button>&nbsp;
-                            </a>
+                        <a :href=`/movies/genres/?name=${genre.name}`> <button type="button"
+                            class="btn btn-light mt-2">[[ genre.name ]]</button>&nbsp;
+                        </a>
                     </span>
                 </div>
             </div>
@@ -22,53 +22,59 @@
         <div class="container">
             <hr class="border-white">
             <br>
-                <h1 class="title is-2" v-text="selectedGenre" style="font-family: 'Do Hyeon','sans-serif'; font-weight: 500; font-size: 55px"></h1>
+            <h1 class="title is-2" v-text="selectedGenre"
+                style="font-family: 'Do Hyeon','sans-serif'; font-weight: 500; font-size: 55px"></h1>
             <div class="columns is-multiline is-variable is-5" style="padding-left: 1rem; padding-right: 1rem;">
                 <div class="column is-one-third" style="margin-bottom: 2rem;">
                     {% for movie in movies %}
-                            <table class="" style="border-radius: 10px; background-color: rgb(61, 58, 58, 20);">
-                                    <thead>
-                                        <tr>
-                                          <th>
-                                                <a href="/movies/{{movie.pk}}/"><img src="https://image.tmdb.org/t/p/w500/{{ movie.poster_path }}" alt="{{ movie.title }}" style="border-radius: 10px; width:300px; margin-right: 20px;"></a></th>
-                                          <th style="margin-left: 30px; text-align: center;"><h1 style="color:rgb(255, 255, 255)">{{ movie.title }}</h1>
-                                
-                                          {% if 8 <= movie.vote_average and movie.vote_average < 10 %}
-                                            <i class="fas fa-star fa-spin" style="color:yellow"></i>
-                                            <i class="fas fa-star fa-spin" style="color:yellow"></i>
-                                            <i class="fas fa-star fa-spin" style="color:yellow"></i>
-                                            <i class="fas fa-star fa-spin" style="color:yellow"></i>
-                                            <i class="fas fa-star fa-spin" style="color:yellow"></i>
-                                          {% elif 6 <= movie.vote_average and movie.vote_average < 8 %}
-                                            <i class="fas fa-star fa-spin" style="color:yellow"></i>
-                                            <i class="fas fa-star fa-spin" style="color:yellow"></i>
-                                            <i class="fas fa-star fa-spin" style="color:yellow"></i>
-                                            <i class="fas fa-star fa-spin" style="color:yellow"></i>
-                                          {% elif 4 <= movie.vote_average and movie.vote_average < 6 %}
-                                            <i class="fas fa-star fa-spin" style="color:yellow"></i>
-                                            <i class="fas fa-star fa-spin" style="color:yellow"></i>
-                                            <i class="fas fa-star fa-spin" style="color:yellow"></i>
-                                          {% elif 2 <= movie.vote_average and movie.vote_average < 4 %}
-                                            <i class="fas fa-star fa-spin" style="color:yellow"></i>
-                                            <i class="fas fa-star fa-spin" style="color:yellow"></i>
-                                          {% else %}
-                                            <i class="fas fa-star fa-spin" style="color:yellow"></i>
-                                          {% endif %}
-                                          <h6 style="color:rgb(61, 58, 58)">{{ movie.vote_average }}</h6>
-                                            <hr>
-                                            <br><br><br>
-                                            <div style="text-align:left; font-weight: normal; margin-left: 30px; margin-right: 40px;" >
-                                                <p style="color:rgb(255, 255, 255)">{{ movie.overview }}</p>
-                                                <hr>
-                                                </th><br><br>
-                                                
-                                            </div>
-                                        </tr>
-                                      </thead>
-                                </table>
-                    {% endfor %}
+                    <table class="" style="border-radius: 10px; background-color: rgb(61, 58, 58, 20);">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <a href="/movies/{{movie.pk}}/"><img
+                                            src="https://image.tmdb.org/t/p/w500/{{ movie.poster_path }}"
+                                            alt="{{ movie.title }}"
+                                            style="border-radius: 10px; width:300px; margin-right: 20px;"></a></th>
+                                <th style="margin-left: 30px; text-align: center;">
+                                    <h1 style="color:rgb(255, 255, 255)">{{ movie.title }}</h1>
+
+                                    {% if 8 <= movie.vote_average and movie.vote_average < 10 %}
+                                    <i class="fas fa-star fa-spin" style="color:yellow"></i>
+                                    <i class="fas fa-star fa-spin" style="color:yellow"></i>
+                                    <i class="fas fa-star fa-spin" style="color:yellow"></i>
+                                    <i class="fas fa-star fa-spin" style="color:yellow"></i>
+                                    <i class="fas fa-star fa-spin" style="color:yellow"></i>
+                                    {% elif 6 <= movie.vote_average and movie.vote_average < 8 %}
+                                    <i class="fas fa-star fa-spin" style="color:yellow"></i>
+                                    <i class="fas fa-star fa-spin" style="color:yellow"></i>
+                                    <i class="fas fa-star fa-spin" style="color:yellow"></i>
+                                    <i class="fas fa-star fa-spin" style="color:yellow"></i>
+                                    {% elif 4 <= movie.vote_average and movie.vote_average < 6 %}
+                                    <i class="fas fa-star fa-spin" style="color:yellow"></i>
+                                    <i class="fas fa-star fa-spin" style="color:yellow"></i>
+                                    <i class="fas fa-star fa-spin" style="color:yellow"></i>
+                                    {% elif 2 <= movie.vote_average and movie.vote_average < 4 %}
+                                    <i class="fas fa-star fa-spin" style="color:yellow"></i>
+                                    <i class="fas fa-star fa-spin" style="color:yellow"></i>
+                                    {% else %}
+                                    <i class="fas fa-star fa-spin" style="color:yellow"></i>
+                                    {% endif %}
+                                    <h6 style="color:rgb(61, 58, 58)">{{ movie.vote_average }}</h6>
+                                    <hr>
+                                    <br><br><br>
+                                    <div
+                                        style="text-align:left; font-weight: normal; margin-left: 30px; margin-right: 40px;">
+                                        <p style="color:rgb(255, 255, 255)">{{ movie.overview }}</p>
+                                        <hr>
+                                </th><br><br>
+
                 </div>
+                </tr>
+                </thead>
+                </table>
+                {% endfor %}
             </div>
+        </div>
         </div>
         <br><br>
     </section>
