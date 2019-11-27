@@ -4,6 +4,7 @@ from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
 from .forms import RatingForm
 from django.contrib import messages
+from django.http import HttpResponseForbidden, HttpResponse, JsonResponse
 
 from django.conf import settings
 from rest_framework import status
@@ -162,17 +163,17 @@ def rating_delete(request, movie_pk, rating_pk):
         messages.warning(request, '리뷰가 삭제되었습니다.')
     return redirect('movies:detail', movie_pk)
 
-@require_POST
-def like(request, movie_pk):
-    movie = get_object_or_404(Movie, pk=movie_pk)
-    if request.user.is_authenticated:
-        if movie in request.user.like_movies.all():
-            request.user.like_movies.remove(movie)
-        else:
-            request.user.like_movies.add(movie)
-    else:
-        messages.warning(request, '로그인이 필요한 기능입니다.')
-    return redirect('movies:detail', movie_pk)
+# @require_POST
+# def like(request, movie_pk):
+#     movie = get_object_or_404(Movie, pk=movie_pk)
+#     if request.user.is_authenticated:
+#         if movie in request.user.like_movies.all():
+#             request.user.like_movies.remove(movie)
+#         else:
+#             request.user.like_movies.add(movie)
+#     else:
+#         messages.warning(request, '로그인이 필요한 기능입니다.')
+#     return redirect('movies:detail', movie_pk)
 
 def update_score(request, rating_pk):
     rating = get_object_or_404(Rating, pk=rating_pk)
@@ -191,3 +192,20 @@ def update_score(request, rating_pk):
     else:
         messages.warning(request, '수정 권한이 없습니다.')
     return redirect('movies:detail', rating.movie.pk)
+
+@login_required
+def like(request, movie_pk):
+    movie = get_object_or_404(Movie, pk=movie_pk)
+    
+    # 좋아요를 누른적이 있다면?
+    is_liked = True
+    if movie in request.user.like_movies.all():
+        # 좋아요 취소 로직
+        request.user.like_movies.remove(movie)
+        is_liked = False
+    # 아니면
+    else:
+        # 좋아요 로직
+        request.user.like_movies.add(movie)
+        is_liked = True
+    return JsonResponse({'is_liked': is_liked, 'likers': movie.like_users.count()})
