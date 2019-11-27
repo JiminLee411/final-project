@@ -13,11 +13,11 @@ from .forms import CustomUserChangeForm, CustomUserCreationForm
 
 
 # Create your views here.
-def index(request):
-    context = {
-        'users' : get_user_model().objects.all()
-    }
-    return render(request, 'accounts/index.html', context)
+# def index(request):
+#     context = {
+#         'users' : get_user_model().objects.all()
+#     }
+#     return render(request, 'accounts/index.html', context)
 
 
 def signup(request):
