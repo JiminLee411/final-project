@@ -26,10 +26,14 @@
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="{% url 'accounts:delete' user.pk %}">회원탈퇴</a>
           </div>
-          <a href="{% url 'movies:myfavorite' %}">
-            <p>내가 찜한 영화</p>
-          </a>
         </li>
+        <a href="{% url 'movies:myfavorite' %}">
+          <div style="color:white;">
+            <p>내가 찜한 영화</p>
+          </div>        
+        </a>
+
+
         <!-- 로그인이 되어 있지 않다면, -->
         {% else %}
         <li class="nav-item">
