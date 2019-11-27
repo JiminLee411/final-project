@@ -9,11 +9,12 @@
                 <div class="tags">
                     <span class="tag is-white" v-for="genre in genreList"
                         :class="{ 'is-info': genre.name === selectedGenre }">
-                        <a @click="getMovieList(genre)">
+                        <!-- <a @click="getMovieList(genre)"> -->
+                            <a :href=`/movies/genres/?name=${genre.name}`>
                                 [[ genre.name ]]
                               </a>
-                              <a :href="getGenreUrl([[genre.name]])">
-                                </a>
+                              <!-- <a :href="getGenreUrl([[genre.name]])">
+                                </a> -->
                     </span>
                 </div>
                 <h1 class="title is-2" v-text="selectedGenre" style="font-family: 'Gugi'"></h1>
@@ -86,7 +87,7 @@
             },
             getMovieList: function (genre) {
                 this.selectedGenre = genre.name;
-                history.replaceState({}, {}, `/genres/?name=${this.selectedGenre}`);
+                history.replaceState({}, {}, `/movies/genres/?name=${this.selectedGenre}`);
             },
         }
     })
