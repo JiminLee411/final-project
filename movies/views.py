@@ -68,7 +68,7 @@ def detail(request, movie_pk):
 
 def genres_index(request):
     genre = get_object_or_404(Genre, name=request.GET.get('name'))
-    movies = Movie.objects.order_by('id').filter(genres=genre.genre_id)[0:5]
+    movies = Movie.objects.order_by('id').filter(genres=genre.genre_id).exclude(overview=0)[0:5]
     return render(request, 'movies/genre.html', {'genre': genre, 'movies': movies})
 
 @api_view(["GET"])

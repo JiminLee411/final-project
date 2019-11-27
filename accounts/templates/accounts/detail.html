@@ -4,7 +4,7 @@
 {% load gravatar %}
 {% block app %}
 <h1 class="text-center">{{ user_profile.username }}'s Profile</h1>
-<div class="jumbotron-fluid text-center mb-2 text-white bg-dark">
+<!-- <div class="jumbotron-fluid text-center mb-2 text-white bg-dark">
     <div class="container">
         <br>
         {% comment %} <p class="lead">팔로잉 : {{ user_profile.followers.all.count }} / 팔로워 : {{ user_profile.followings.all.count }}
@@ -62,6 +62,51 @@
           </nav>
         </article>
     </div>
+</div> -->
+<div class="media-content">
+    <div class="content">
+      <p>
+      <span style="
+        font-family: 'Noto Sans KR';
+        font-weight: 700;
+        font-size: 1.5rem;
+        color: #fff;
+        margin-right: 0.5rem;
+      ">
+        {{ person.username }}
+      </span>
+        {% if user != person %}
+          <button v-show="!is_follow" class="button is-primary" @click="follow('{{ person.username }}')">팔로우
+          </button>
+          <button v-show="is_follow" class="button is-light is-outlined"
+                  @click="follow('{{ person.username }}')">팔로잉
+          </button>
+        {% endif %}
+      </p>
+    </div>
+  </div>
+  <nav class="level-left has-text-white-bis">
+    <div class="level-item has-text-centered">
+      <div>
+        <p class="heading">Following</p>
+        <p class="title has-text-white-bis">[[ followings ]]</p>
+      </div>
+    </div>
+    <div class="level-item has-text-centered">
+      <div>
+        <p class="heading">Followers</p>
+        <p class="title has-text-white-bis">[[ followers ]]</p>
+      </div>
+    </div>
+    <div class="level-item has-text-centered">
+      <div>
+        <p class="heading">Ratings</p>
+        <p class="title has-text-white-bis">[[ rating_count ]]</p>
+      </div>
+    </div>
+  </nav>
+</article>
+</section>
 </div>
 {% if user == user_profile %}
 <div class="text-center">

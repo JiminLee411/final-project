@@ -3,6 +3,7 @@
 {% block app %}
 
 {% if not movies_popular and not movies_vote.count %}
+<i class="fas fa-video fa-2x" style="color: #fff; margin-bottom: 0.7rem;"></i>
 <h1>{{keyword}} 검색 결과 총 {{movies.count}} 개</h1>
 {% for movie in movies %}
 <a href="{% url 'movies:detail' movie.pk %}">
@@ -14,6 +15,7 @@
 {% endfor %}
 
 {% else %}
+<i class="fas fa-video fa-2x" style="color: #fff; margin-bottom: 0.7rem;"></i>
 <h1>인기순</h1>
 
 {% for movie in movies_popular %}
@@ -23,6 +25,9 @@
 {% empty %}
 <p>등록된 영화가 없습니다.</p>
 {% endfor %}
+
+<br><br><br>
+<i class="fas fa-video fa-2x" style="color: #fff; margin-bottom: 0.7rem;"></i>
 <h1>평점순</h1>
 {% for movie in movies_vote %}
 <a href="{% url 'movies:detail' movie.pk %}">
