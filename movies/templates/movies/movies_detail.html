@@ -49,7 +49,7 @@
                 개봉일자 : {{ movie.release_date }}&nbsp;&nbsp;&nbsp;&nbsp;
                 </h6><br>
                 <p>{{ movie.overview }}</p>
-                <a href='https://www.youtube.com/results?search_query={{movie.title}}'>
+                <a href='https://www.youtube.com/results?search_query={{movie.title}} +예고편'>
                 <div class="favorite-box d-inline" style="color: red;">재생</div></a>
                 <div class="favorite-box d-inline id="like-btn" data-id="{{movie.id}}">
                 <button class="btn btn-dark" id="like-btn" data-id="{{movie.id}}">
@@ -136,26 +136,7 @@
 
 
 <br><br><br><br>
-  <script>
-    const likeButton = document.querySelector('#like-btn')
-    likeButton.addEventListener('click', function (event) {
-      console.log(this)
-      axios.get(`/movies/${this.dataset.id}/like/`)
-        .then(response => {
-          console.log(response)
-          console.log(event.target)
-          const likers = document.querySelector('#like-count')
-          if (response.data.is_liked) {
-            this.children[0].classList.remove('far')
-            this.children[0].classList.add('fas')
-          } else {
-            this.children[0].classList.remove('fas')
-            this.children[0].classList.add('far')
-          }
-          likers.innerText = response.data.likers
-        })
-    })
-  </script>
+
 <script>
   const likeButton = document.querySelector('#like-button')
   likeButton.addEventListener('click', function(event) {
@@ -179,5 +160,6 @@
         console.log(error)
       })
     })
-</script
+</script>
+
 {% endblock %}
