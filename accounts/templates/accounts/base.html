@@ -7,16 +7,20 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>I'm your MovieBuddy</title>
   <!-- css -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="{% static 'css/app.css'%}">
   <!-- bootstrap -->
   <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
   <!-- Font Awesome -->
   <script src="https://kit.fontawesome.com/d00b3497dc.js" crossorigin="anonymous"></script>
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Do+Hyeon&display=swap" rel="stylesheet">
-
+  <!-- Vue -->
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <!-- Axios -->
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script>
     axios.defaults.xsrfCookieName = 'csrftoken';
     axios.defaults.xsrfHeaderName = 'X-CSRFToken';
@@ -30,7 +34,12 @@
     background-repeat: no-repeat;
     background-size: cover;
     }
-
+    .favorite-box {
+      border: 1px solid;
+      padding: 13px;
+      color: grey;
+      width: 25%;
+    }
   </style>
   {% block css %}
   {% endblock %}

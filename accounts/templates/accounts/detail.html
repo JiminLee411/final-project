@@ -1,45 +1,94 @@
 {% extends 'accounts/base.html' %}
 {% load humanize %}
+{% load static %}
+{% load gravatar %}
 {% block app %}
 <h1 class="text-center">{{ user_profile.username }}'s Profile</h1>
-<div class="jumbotron jumbotron-fluid text-center mb-2 text-white bg-dark">
-        <div class="container">
-          <hr class="my-4 border-white">
-          <p class="lead">팔로잉 : {{ user_profile.followings.all.count }} / 팔로워 : {{ user_profile.followers.all.count }}</p>
-          {% if user != user_profile %}
-              {% if user in user_profile.followers.all %}
-              <a href="{% url 'accounts:follow' user_profile.pk %}" class="btn btn-outline-primary">Unfollow</a>
-              {% else %}
-              <a href="{% url 'accounts:follow' user_profile.pk %}" class="btn btn-primary">Follow</a>
-              {% endif %}
-          {% endif %}
-        </div>
-      </div>
-      {% if user == user_profile %}
-      <div class="text-center">
-          <a href="{% url 'accounts:update' %}" class="badge badge-info">정보 수정</a>
-          <a href="{% url 'accounts:password_change' %}" class="badge badge-warning">비밀번호 변경</a>
-      </div>
-      {% endif %}
-      <hr>
-      <h3 class="text-center">평점을 남겼던 영화</h3>
-      <div class="row d-flex justify-content-center" >
-          {% for rating in user_profile.rating_set.all %}
-              
-                  <div class="ml-2 col-xl-2 col-lg-4 col-12">
-                      <div class="card mb-2 bg-dark" style="width: 300px;">
-                      <a href="https://django-project-rngus3050.c9users.io/{{rating.movie.id}}/"><img src="https://image.tmdb.org/t/p/w500/{{rating.movie.poster_path}}" class="card-img-top" alt="{{rating.movie.title}}" style="width: 300px; height: 500px;"></a>
-                          <div class="card-body bg-dark" style="width:300px; height: 150px;">
-                              <h5 class="card-title">
-                                  {{ rating.movie.title }}<br>
-                              </h5>
-                              <p class="card-text">{{ rating.movie.tagline }}</p>
-                              <footer class="blockquote-footer text-info">{{ rating }}</footer>
-                          </div>
-                      </div>
-                  </div>
-                  {% endfor %}
+<div class="jumbotron-fluid text-center mb-2 text-white bg-dark">
+    <div class="container">
+        <br>
+        {% comment %} <p class="lead">팔로잉 : {{ user_profile.followers.all.count }} / 팔로워 : {{ user_profile.followings.all.count }}
+            {% if user != user_profile %}
+            {% if user in user_profile.followings.all %}
+            <a href="{% url 'accounts:follow' user_profile.pk %}" class="btn btn-outline-primary">Unfollow</a>
+            {% else %}
+            <a href="{% url 'accounts:follow' user_profile.pk %}" class="btn btn-primary">Follow</a>
+            {% endif %}
+            {% endif %}
+        </p> {% endcomment %}
+        <hr class="border-white">
+        <br>
+        <article class="media">
+          <div class="media-content">
+            <div class="content">
+              <p>
+              <span class="d-inline" style="
+                font-family: 'Noto Sans KR';
+                font-weight: 700;
+                font-size: 1.5rem;
+                color: #fff;
+                margin-right: 0.5rem;">
+                {{ user_profile.username }}
+              </span>
+                {% if request.user != user_profile %}
+                  <button v-show="!is_follow" class="button is-primary" @click="follow('{{ user_profile.username }}')">팔로우
+                  </button>
+                  <button v-show="is_follow" class="button is-light is-outlined"
+                          @click="follow('{{ user_profile.username }}')">팔로잉
+                  </button>
+                {% endif %}
+              </p>
+            </div>
           </div>
-    <hr>
-    <br><br><br><br>
+          <nav class="level-left has-text-white-bis">
+            <div class="level-item has-text-centered">
+              <div>
+                <p class="heading">Following</p>
+                <p class="title has-text-white-bis"> {{ user_profile.followers.count}} </p>
+              </div>
+            </div>
+            <div class="level-item has-text-centered">
+              <div>
+                <p class="heading">Followers</p>
+                <p class="title has-text-white-bis">{{ user_profile.followers.count}}</p>
+              </div>
+            </div>
+            <div class="level-item has-text-centered">
+              <div>
+                <p class="heading">Ratings</p>
+                <p class="title has-text-white-bis">{{ user_profile.rating.count}}</p>
+              </div>
+            </div>
+          </nav>
+        </article>
+    </div>
+</div>
+{% if user == user_profile %}
+<div class="text-center">
+    <a href="{% url 'accounts:update' %}" class="badge badge-info">정보 수정</a>
+    <a href="{% url 'accounts:password_change' %}" class="badge badge-warning">비밀번호 변경</a>
+</div>
+{% endif %}
+<hr>
+<h3 class="text-center">평점을 남겼던 영화</h3>
+
+<div class="row d-flex justify-content-center">
+    {% for rating in user_profile.rating_set.all %}
+    <div class="col-xl-2 col-lg-4 col-12">
+        <div class="card mb-2 bg-dark" style="width: 250px;">
+            <a href="{% url 'movies:detail' rating.movie.pk %}"><img
+                    src="https://image.tmdb.org/t/p/w500/{{rating.movie.poster_path}}" class="card-img-top"
+                    alt="{{rating.movie.title}}" style="width: 100%; height: 100%;"></a>
+            <h5 class="card-title" style="padding: 10px;">
+                {{ rating.movie.title }}
+            </h5>
+            <p class="card-text">{{ rating.movie.tagline }}</p>
+            <footer class="blockquote-footer text-info" id="my_rating" style= "text-overflow: ellipsis;">{{ rating }}</footer>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+<hr>
+<br><br><br><br>
+
 {% endblock %}

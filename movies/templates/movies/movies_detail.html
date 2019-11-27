@@ -7,29 +7,31 @@
         <tr> <!-- table row(행) -->
           <th></th> <!-- table header -->
           <th>
-              <img src="https://image.tmdb.org/t/p/w185_and_h278_bestv2/{{ movie.poster_path }}" alt="{{ movie.title }}" style="width:450px; margin-right: 20px;"></th>
+              <img src="https://image.tmdb.org/t/p/w500/{{ movie.poster_path }}" alt="{{ movie.title }}" style="width:450px; margin-right: 20px;"></th>
           <th style="margin-left: 30px; text-align: center;"><h1>{{ movie.title }}</h1>
-          {% comment %} {% if movie.vote_average <= 2 %}
-            <i class="fas fa-star"></i>
-            {% elif movie.vote_average >4 and movie.vote_average <=6 %}
-            <i class="fas fa-star"></i><i class="fas fa-star"></i>
-            {% endif %} {% endcomment %}
-          
-          
-          
-          <h6>{{ movie.vote_average }}</h6>
-          {% if movie.vote_average <= 2 %}
-            <h4>★</h4>
-          {% elif movie.vote_average <= 4 %}
-            <h4>★★</h4>
-          {% elif movie.vote_average <= 6 %}
-            <h4>★★★</h4>
-          {% elif movie.vote_average <= 8 %}
-            <h4>★★★★</h4>
+
+          {% if 8 <= movie.vote_average and movie.vote_average < 10 %}
+            <i class="fas fa-star fa-spin" style="color:yellow"></i>
+            <i class="fas fa-star fa-spin" style="color:yellow"></i>
+            <i class="fas fa-star fa-spin" style="color:yellow"></i>
+            <i class="fas fa-star fa-spin" style="color:yellow"></i>
+            <i class="fas fa-star fa-spin" style="color:yellow"></i>
+          {% elif 6 <= movie.vote_average and movie.vote_average < 8 %}
+            <i class="fas fa-star fa-spin" style="color:yellow"></i>
+            <i class="fas fa-star fa-spin" style="color:yellow"></i>
+            <i class="fas fa-star fa-spin" style="color:yellow"></i>
+            <i class="fas fa-star fa-spin" style="color:yellow"></i>
+          {% elif 4 <= movie.vote_average and movie.vote_average < 6 %}
+            <i class="fas fa-star fa-spin" style="color:yellow"></i>
+            <i class="fas fa-star fa-spin" style="color:yellow"></i>
+            <i class="fas fa-star fa-spin" style="color:yellow"></i>
+          {% elif 2 <= movie.vote_average and movie.vote_average < 4 %}
+            <i class="fas fa-star fa-spin" style="color:yellow"></i>
+            <i class="fas fa-star fa-spin" style="color:yellow"></i>
           {% else %}
-            <h4>★★★★★</h4>
+            <i class="fas fa-star fa-spin" style="color:yellow"></i>
           {% endif %}
-          
+          <h6>{{ movie.vote_average }}</h6>
             <hr>
             <br><br><br>
             <div style="text-align:left; font-weight: normal; margin-left: 30px;" >
@@ -44,23 +46,28 @@
                 {{ genre_name }}&nbsp;&nbsp;|&nbsp;&nbsp;
 
                 {{ movie.runtime }}분&nbsp;&nbsp;|&nbsp;&nbsp;
-                개봉일자 : {{ movie.release_date }}&nbsp;&nbsp;|&nbsp;&nbsp;
+                개봉일자 : {{ movie.release_date }}&nbsp;&nbsp;&nbsp;&nbsp;
                 </h6><br>
-                <p><span id="like-count">{{ movie.like_users.count }}</span>명이 이 글을 좋아합니다.</p>
-                {% if user in movie.like_users.all %}
-                <i id="like-button" data-id="{{user.id}}" class="fas fa-heart fa-2x" style="color: red;"></i>
-                {% else %}
-                <i id="like-button" data-id="{{user.id}}" class="far fa-heart fa-2x" style="color: black;"></i>
-                {% endif %}
+                <p>{{ movie.overview }}</p>
+                <a href=`https://www.youtube.com/results?search_query={{movie.title}}`>
+                <div class="favorite-box d-inline" style="color: red;">재생</div></a>
+                <div class="favorite-box d-inline id="like-btn" data-id="{{movie.id}}">
+                <button class="btn btn-dark" id="like-btn" data-id="{{movie.id}}">
+                  {% if user in movie.like_users.all %}
+                    내가 이미 찜한 영화
+                  {% else %}
+                    + 이 영화 찜하기
+                  {% endif %}
+                </button>
+                </div>
+                <div class="d-inline p-2 bg-primary text-white"></div>
+                <div class="d-inline p-2 bg-dark text-white">d-inline</div>
 
-                <p><span id="like-count">{{ movie.like_users.count }}</span>명이 이 영화를 찜하였습니다.</p>
-                {% if user in movie.like_users.all %}
-                    <i id="like-button" data-id="{{ movie.id}}" class="fas fa-heart fa-2x" style="color: red;"></i>
-                {% else %}
-                    <i id="like-button" data-id="{{movie.id}}" class="far fa-heart fa-2x" style="color: black;"></i>
-                {% endif %}
+                <p class='d-inline-block'><span id="like-count"> {{likers}}</p>
+                <hr>
+                </th><br>
                 <br><br><br>
-                <p>{{ movie.overview }}</p></th><br>
+                
             </div>
         </tr>
       </thead>
@@ -72,16 +79,43 @@
 <br>
 
 {% for rating in ratings %}
-<b><a href="{% url 'accounts:detail' rating.user.pk %}">{{ rating.user.username }}</a> | {{ rating.score }} </b><br>
-{{ rating.comment }}
+<h5><a href="{% url 'accounts:detail' rating.user.pk %}">{{ rating.user.username }}</a>
+{% if 8 < rating.score and rating.score <= 10 %}
+  <i class="fas fa-star" style="color:yellow"></i>
+  <i class="fas fa-star" style="color:yellow"></i>
+  <i class="fas fa-star" style="color:yellow"></i>
+  <i class="fas fa-star" style="color:yellow"></i>
+  <i class="fas fa-star" style="color:yellow"></i>
+{% elif 6 < rating.score and rating.score <= 8 %}
+  <i class="fas fa-star" style="color:yellow"></i>
+  <i class="fas fa-star" style="color:yellow"></i>
+  <i class="fas fa-star" style="color:yellow"></i>
+  <i class="fas fa-star" style="color:yellow"></i>
+{% elif 4 < rating.score and rating.score <= 6 %}
+  <i class="fas fa-star" style="color:yellow"></i>
+  <i class="fas fa-star" style="color:yellow"></i>
+  <i class="fas fa-star" style="color:yellow"></i>
+{% elif 2 < rating.score and rating.score <= 4 %}
+  <i class="fas fa-star" style="color:yellow"></i>
+  <i class="fas fa-star" style="color:yellow"></i>
+{% else %}
+  <i class="fas fa-star" style="color:yellow"></i>
+{% endif %}
+  {% comment %} {{ rating.score }}  {% endcomment %}
 {% if rating.user == request.user %}
-<a href="{% url 'movies:rating_update' movie.pk rating.pk %}">EDIT</a>
-
+{% comment %} <a href="{% url 'movies:rating_update' movie.pk rating.pk %}">EDIT</a> {% endcomment %}
+<form action="{% url 'movies:rating_update' movie.pk rating.pk %}" method='GET' class="d-inline">
+    {% csrf_token %}
+    <input type="submit" value="EDIT" class='btn text-light'/>
+</form>
 <form action="{% url 'movies:rating_delete' movie.pk rating.pk %}" method='POST' class="d-inline">
     {% csrf_token %}
     <input type="submit" value="DELETE" class='btn text-danger'/>
 </form>
 {% endif %}
+</h5>
+{{ rating.comment }}
+
 <hr class="bg-light">
 {% empty %}
 평점이 없습니다.
@@ -95,13 +129,33 @@
         {% bootstrap_form rating_form %}
         <!-- <button type="submit">확인</button> -->
         <div class="d-flex justify-content-end">
-            <input type="submit" value="Submit" class="btn btn-dark"/>
+            <input type="submit" value="작성하기" class="btn btn-dark"/>
         </div>
     </form>
-{% endif %} {% endcomment %}
+{% endif %}
 
 
 <br><br><br><br>
+  <script>
+    const likeButton = document.querySelector('#like-btn')
+    likeButton.addEventListener('click', function (event) {
+      console.log(this)
+      axios.get(`/movies/${this.dataset.id}/like/`)
+        .then(response => {
+          console.log(response)
+          console.log(event.target)
+          const likers = document.querySelector('#like-count')
+          if (response.data.is_liked) {
+            this.children[0].classList.remove('far')
+            this.children[0].classList.add('fas')
+          } else {
+            this.children[0].classList.remove('fas')
+            this.children[0].classList.add('far')
+          }
+          likers.innerText = response.data.likers
+        })
+    })
+  </script>
 <script>
   const likeButton = document.querySelector('#like-button')
   likeButton.addEventListener('click', function(event) {
@@ -125,5 +179,5 @@
         console.log(error)
       })
     })
-</script>
+</script
 {% endblock %}
