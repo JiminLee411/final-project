@@ -2,16 +2,16 @@
 {% load bootstrap4 %}
 {% load static %}
 
-    {% block css %}
-    {% endblock %}
+{% block css %}
+{% endblock %}
 
-    {% block app %}
-    
-    {% endblock %}
-    {% block script %}
-    <form action="" method="POST">
-        {% csrf_token %}
-        {{ rating_form }}
-        <input type="submit" value="작성">
-    </form>
-    {% endblock %}
+{% block app %}
+
+{% endblock %}
+{% block script %}
+<form action="" method="POST">
+    {% csrf_token %}
+    {{ rating_form }}
+    <input type="submit" value="작성">
+</form>
+{% endblock %}
