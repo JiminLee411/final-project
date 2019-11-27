@@ -4,7 +4,7 @@
 {% if not movies_popular and not movies_vote.count %}
     {% for movie in movies %}
         <a href="{% url 'movies:detail' movie.pk %}">
-            <img src="https://image.tmdb.org/t/p/w185_and_h278_bestv2/{{ movie.poster_path }}" alt="{{ movie.title }}" style="width:24%;">
+            <img src="https://image.tmdb.org/t/p/w500/{{ movie.poster_path }}" alt="{{ movie.title }}" style="width:300px; height: 150px;">
         </a>
     {% empty %}
         <p>등록된 영화가 없습니다.</p>
@@ -15,7 +15,7 @@
 
 {% for movie in movies_popular %}
     <a href="{% url 'movies:detail' movie.pk %}">
-        <img src="https://image.tmdb.org/t/p/w185_and_h278_bestv2/{{ movie.poster_path }}" alt="{{ movie.title }}" style="width:24%;">
+        <img src="https://image.tmdb.org/t/p/w500/{{ movie.poster_path }}" alt="{{ movie.title }}" style="width:24%;">
     </a>
 {% empty %}
     <p>등록된 영화가 없습니다.</p>
@@ -23,7 +23,7 @@
 <h1>평점순</h1>
 {% for movie in movies_vote %}
     <a href="{% url 'movies:detail' movie.pk %}">
-        <img src="https://image.tmdb.org/t/p/w185_and_h278_bestv2/{{ movie.poster_path }}" alt="{{ movie.title }}" style="width:24%;">
+        <img src="https://image.tmdb.org/t/p/w500/{{ movie.poster_path }}" alt="{{ movie.title }}" style="width:24%;">
     </a>
 {% empty %}
     <p>등록된 영화가 없습니다.</p>
