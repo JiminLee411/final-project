@@ -21,6 +21,7 @@ def movies_index(request):
     movies_popular = Movie.objects.order_by('id')[0:20]
     movies_vote = Movie.objects.order_by('-vote_average')[0:20]
     genres = Genre.objects.all()
+    favorite_movies = ''
     recommends = will_likes = []
     cnt = 12
     if request.user.is_authenticated:
