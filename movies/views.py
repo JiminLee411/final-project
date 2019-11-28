@@ -13,7 +13,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .serializers import GenreSerializer, MovieSerializer, RatingSerializer, ActorSerializer
 from django.contrib.auth import get_user_model
-
+import random
 
 # Create your views here.
 def movies_index(request):
@@ -22,6 +22,7 @@ def movies_index(request):
     movies_vote = Movie.objects.order_by('-vote_average')[0:20]
     genres = Genre.objects.all()
     will_likes = recommends = []
+    favorite_movies=''
     cnt = 12
     if request.user.is_authenticated:
         people = request.user.followers.all()
