@@ -21,9 +21,9 @@ def movies_index(request):
     movies_popular = Movie.objects.order_by('id')[0:20]
     movies_vote = Movie.objects.order_by('-vote_average')[0:20]
     genres = Genre.objects.all()
-    people = request.user.followers.all()
     will_likes = []
     if request.user.is_authenticated:
+        people = request.user.followers.all()
         for person in people:
             ratings = person.rating_set.filter(score__gt=6)
             for rate in ratings:
