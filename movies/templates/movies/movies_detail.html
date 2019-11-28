@@ -41,8 +41,8 @@
           <h6>감독&nbsp;&nbsp;&nbsp;&nbsp; <a href="#">{{ movie.director }}</a></h6>
           <h6>
             출연&nbsp;&nbsp;&nbsp;&nbsp;
-            {% for index in MovieActors %}
-            {{ index }}, &nbsp;
+            {% for actor in actors %}
+            {{ actor}}, &nbsp;
             {% endfor %}
           </h6>
           <h6>개요&nbsp;&nbsp;&nbsp;&nbsp;
@@ -105,7 +105,6 @@
   {% endif %}
   {{ rating.score }}
   {% if rating.user == request.user %}
-  <!-- <a href="{% url 'movies:rating_update' movie.pk rating.pk %}">EDIT</a> -->
   <form action="{% url 'movies:rating_update' movie.pk rating.pk %}" method='GET' class="d-inline">
     <input type="submit" value="EDIT" class='btn text-info' />
   </form>

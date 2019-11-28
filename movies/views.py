@@ -61,25 +61,18 @@ def movies_index(request):
 def detail(request, movie_pk):
     movie = get_object_or_404(Movie, pk=movie_pk)
     genre = Genre.objects.filter(genre_id=movie.genres)
-    actors = Actor.objects.all()
     ratings = movie.rating_set.all()
-
-    MovieActors = []
-    if len(actors) >= 5:
-        for i in range(5):
-            MovieActors.append(actors[i])
-    else:
-        for j in actors:
-            MovieActors.append(actors[j])
-    
-    # genres = Genre.objects.all()
-    # if movie.genres == genres.name:
-
+    actors = []
+    if movie.actor_1: actors.append(Actor.objects.filter(actor_id=movie.actor_1)[0].actor_name)
+    if movie.actor_2: actors.append(Actor.objects.filter(actor_id=movie.actor_2)[0].actor_name)
+    if movie.actor_3: actors.append(Actor.objects.filter(actor_id=movie.actor_3)[0].actor_name)
+    if movie.actor_4: actors.append(Actor.objects.filter(actor_id=movie.actor_4)[0].actor_name)
+    if movie.actor_5: actors.append(Actor.objects.filter(actor_id=movie.actor_5)[0].actor_name)
     rating_form = RatingForm()
     context = {
         'genre_name' : genre[0],
         'movie': movie,
-        'MovieActors' : MovieActors,
+        'actors' : actors,
         'ratings': ratings,
         'rating_form': rating_form
     }
