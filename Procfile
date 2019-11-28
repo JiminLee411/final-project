@@ -1,0 +1,1 @@
+web: gunicorn moviebuddy.wsgi --log-file -

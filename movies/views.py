@@ -50,10 +50,8 @@ def movies_index(request):
     
 def detail(request, movie_pk):
     movie = get_object_or_404(Movie, pk=movie_pk)
-    movies = request.user.like_movies.all()
     genre = Genre.objects.filter(genre_id=movie.genres)
     actors = Actor.objects.all()
-    form = RatingForm()
     ratings = movie.rating_set.all()
 
     MovieActors = []
@@ -69,7 +67,6 @@ def detail(request, movie_pk):
 
     rating_form = RatingForm()
     context = {
-        'movies': movies,
         'genre_name' : genre[0],
         'movie': movie,
         'MovieActors' : MovieActors,
