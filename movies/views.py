@@ -120,29 +120,6 @@ def movies_detail(request, movie_pk):
     serializer = MovieSerializer(movie)
     return Response(serializer.data)
 
-@login_required  
-@api_view(['POST'])
-def rating_create(request, movie_pk):
-    movie = get_object_or_404(Movie, pk= movie_pk)
-    serializer = RatingSerializer(data = request.data)
-    if serializer.is_valid(raise_exception=True):
-        serializer.save(movie_id=movie_pk)
-        return Response({'message': '작성되었습니다'})
-
-@login_required
-@api_view(['PUT','DELETE'])
-def rating_update_and_delete(request, rating_pk, movie_pk):
-    rating = get_object_or_404(Rating, pk = rating_pk)
-    if request.method == 'PUT':
-        serializer = RatingSerializer(data= request.data, instance=rating)
-        if serializer.is_valid(raise_exception=True):
-            serializer.save()
-            return Response({'message': '수정되었습니다'})
-    else:
-        # 작성자와 동일한지 확인해보고 삭제시켜줘
-        score.delete()
-        return Response({'message': '삭제되었습니다.'})
-
 @require_POST
 @login_required
 def create_rating(request, movie_pk):
@@ -160,7 +137,6 @@ def create_rating(request, movie_pk):
 
 @login_required
 def rating_update(request, movie_pk, rating_pk):
-    movie = get_object_or_404(Movie, pk=movie_pk)
     rating = get_object_or_404(Rating, pk=rating_pk)
     if rating.user != request.user:
         return redirect('movies:detail', movie_pk)
@@ -179,30 +155,11 @@ def rating_update(request, movie_pk, rating_pk):
 
 @login_required
 def rating_delete(request, movie_pk, rating_pk):
-    movie = get_object_or_404(Movie, pk=movie_pk)
     rating = get_object_or_404(Rating, pk=rating_pk)
     if request.method == 'POST':
         rating.delete()
         messages.warning(request, '리뷰가 삭제되었습니다.')
     return redirect('movies:detail', movie_pk)
-
-def update_score(request, rating_pk):
-    rating = get_object_or_404(Rating, pk=rating_pk)
-    if request.user == rating.user:
-        if request.method == 'POST':
-            form = ratingForm(request.POST, instance=rating)
-            if form.is_valid():
-                form.save()
-                return redirect('movies:detail', rating.movie.pk)
-        else:
-            form = ratingForm(instance=rating)
-        context = {
-            'form': form
-        }
-        return render(request, 'accounts/form.html', context)
-    else:
-        messages.warning(request, '수정 권한이 없습니다.')
-    return redirect('movies:detail', rating.movie.pk)
 
 @login_required
 def like(request, movie_pk):
@@ -223,7 +180,6 @@ def like(request, movie_pk):
 
 @login_required
 def myfavorite(request):
-    movie = Movie.objects.all()
     movies = request.user.like_movies.all()
     context = {
         'movies' : movies    
