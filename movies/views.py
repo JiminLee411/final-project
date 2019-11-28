@@ -18,17 +18,22 @@ from django.contrib.auth import get_user_model
 # Create your views here.
 def movies_index(request):
     movies = Movie.objects.exclude(poster_path=0)
-    # movies = request.user.like_movies.all()
     movies_popular = Movie.objects.order_by('id')[0:20]
     movies_vote = Movie.objects.order_by('-vote_average')[0:20]
     genres = Genre.objects.all()
-    will_likes = []
+    will_likes = recommends = []
+    cnt = 12
     if request.user.is_authenticated:
         people = request.user.followers.all()
+        favorite_movies = request.user.like_movies.all()
         for person in people:
             ratings = person.rating_set.filter(score__gt=6)
             for rate in ratings:
                 will_likes.append(rate.movie)
+            for favorite in favorite_movies:
+                recommends.append(favorite)
+                if len(recommends) < 12: cnt = len(recommends)
+                will_likes = random.sample(recommends, cnt)
     keyword = request.GET.get('keyword', '')
     if keyword:
         movies = movies.filter(title__icontains=keyword)
@@ -46,6 +51,7 @@ def movies_index(request):
             'movies': None,
             'genres' : genres,
             'will_likes': will_likes,
+            'favorite_movies': favorite_movies
         }
     return render(request, 'movies/movies_index.html', context)
     
