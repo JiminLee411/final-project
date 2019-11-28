@@ -42,14 +42,14 @@
       {% endif %}
     </ul>
 
-    <form action="{% url 'movies:movies_index' %}" class="form-inline my-2 my-lg-0"">
-      <input class="form-control mr-sm-2" type="text" name="keyword" placeholder="영화 제목 검색" aria-label="Search">
+    <form action="{% url 'movies:movies_index' %}" class="form-inline my-2 my-lg-0 pp">
+      <input class="form-control mr-sm-2" type="text" name="keyword" placeholder="영화 제목 검색" aria-label="Search" style="width:350px">
       <button class="btn btn-outline-ligth my-2 my-sm-0" type="submit">Search</button>
     </form>
-    <li id="spin-container">
+    <div id="spin-container">
         <video controls autoplay="autoplay" style="display: none;">
         </video>
-      </li>
+      </div>
     <div id="ground"></div>
     <div id="music-container" style="height: 30;"></div>
     &nbsp;
