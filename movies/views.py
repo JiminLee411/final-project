@@ -23,10 +23,11 @@ def movies_index(request):
     genres = Genre.objects.all()
     people = request.user.followers.all()
     will_likes = []
-    for person in people:
-        ratings = person.rating_set.filter(score__lt=6)
-    for rate in ratings:
-        will_likes.append(rate.movie)
+    if request.user.is_authenticated:
+        for person in people:
+            ratings = person.rating_set.filter(score__gt=6)
+            for rate in ratings:
+                will_likes.append(rate.movie)
     keyword = request.GET.get('keyword', '')
     if keyword:
         movies = movies.filter(title__icontains=keyword)
