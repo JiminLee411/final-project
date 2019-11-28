@@ -4,6 +4,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     # 배포된 url
+    '*'
 ]
 
 # heroku를 위한 설정
