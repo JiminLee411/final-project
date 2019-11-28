@@ -14,7 +14,10 @@
 {% endfor %}
 
 {% else %}
+
 {% if user.is_authenticated %}
+
+{% if user.followers.all %}
 <i class="fas fa-video fa-2x" style="color: #fff; margin-bottom: 0.7rem;"></i>
 <h1>내가 찜한 영화들</h1>
 {% for favorite_movie in favorite_movies %}
@@ -24,6 +27,7 @@
 </a>
 {% endfor %}
 <br><br><br>
+
 <i class="fas fa-video fa-2x" style="color: #fff; margin-bottom: 0.7rem;"></i>
 <h1>{{request.user}}님의 취향저격 베스트 영화</h1>
 {% for will_like in will_likes %}
@@ -33,7 +37,11 @@
 </a>
 {% endfor %}
 <br><br><br>
+
 {% endif %}
+
+{% endif %}
+
 <i class="fas fa-video fa-2x" style="color: #fff; margin-bottom: 0.7rem;"></i>
 <h1>MovieBuddy 인기 영화</h1>
 {% for movie in movies_popular %}

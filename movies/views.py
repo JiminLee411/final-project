@@ -24,15 +24,18 @@ def movies_index(request):
     will_likes = recommends = []
     favorite_movies=''
     cnt = 12
-    if request.user.is_authenticated:
-        people = request.user.followers.all()
-        favorite_movies = request.user.like_movies.all()
-        for person in people:
-            ratings = person.rating_set.filter(score__gt=6)
-            for rate in ratings:
-                will_likes.append(rate.movie)
-            for favorite in favorite_movies:
-                recommends.append(favorite)
+    if request.user.is_authenticated:#로그인
+        people = request.user.followers.all()#은정이가 팔로잉하는 사람들 
+        favorite_movies = request.user.like_movies.all()# 은정이가 찜한 영화들
+        
+        for person in people: # 지민
+            ratings = person.rating_set.filter(score__gt=6) # 지민 남긴 평점 6점 이상인 놈들 
+            favorites = person.like_movies.all()    # 지민이가 찜한 영화들
+            for rate in ratings:    # 하나씩 
+                recommends.append(rate.movie)   # 추천 리스트에 평점남긴 영화 넣어줘
+            print(ratings)    
+            for favorite in favorites: # 지민이가 좋아하는 영화들
+                recommends.append(favorite) 
                 if len(recommends) < 12: cnt = len(recommends)
                 will_likes = random.sample(recommends, cnt)
     keyword = request.GET.get('keyword', '')
@@ -166,7 +169,7 @@ def rating_update(request, movie_pk, rating_pk):
     if request.method == 'POST':
             rating_form = RatingForm(request.POST, instance=rating)
             if rating_form.is_valid():
-                rating.save()
+                rating_form.save()
                 return redirect('movies:detail', movie_pk)
     else:
         rating_form = RatingForm(instance=rating)

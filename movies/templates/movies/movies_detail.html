@@ -101,10 +101,9 @@
   {% endif %}
   {{ rating.score }}
   {% if rating.user == request.user %}
-  <a href="{% url 'movies:rating_update' movie.pk rating.pk %}">EDIT</a>
-  <form action="{% url 'movies:rating_update' movie.pk rating.pk %}" method='GET' class="d-inline">
-    {% csrf_token %}
-    <input type="submit" value="EDIT" class='btn text-light' />
+  {% comment %} <a href="{% url 'movies:rating_update' movie.pk rating.pk %}">EDIT</a> {% endcomment %}
+  <form action="{% url 'movies:rating_update' movie.pk rating.pk %}" class="d-inline">
+    <input type="submit" value="EDIT" class='btn text-info' /> 
   </form>
   <form action="{% url 'movies:rating_delete' movie.pk rating.pk %}" method='POST' class="d-inline">
     {% csrf_token %}
