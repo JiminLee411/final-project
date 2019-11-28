@@ -87,7 +87,7 @@ def detail(request, movie_pk):
 
 def genres_index(request):
     genre = get_object_or_404(Genre, name=request.GET.get('name'))
-    movies = Movie.objects.order_by('id').filter(genres=genre.genre_id).exclude(overview=0)[0:5]
+    movies = Movie.objects.order_by('id').filter(genres=genre.genre_id).exclude(overview=0)[0:50]
     return render(request, 'movies/genre.html', {'genre': genre, 'movies': movies})
 
 @api_view(["GET"])
@@ -185,18 +185,6 @@ def rating_delete(request, movie_pk, rating_pk):
         rating.delete()
         messages.warning(request, '리뷰가 삭제되었습니다.')
     return redirect('movies:detail', movie_pk)
-
-# @require_POST
-# def like(request, movie_pk):
-#     movie = get_object_or_404(Movie, pk=movie_pk)
-#     if request.user.is_authenticated:
-#         if movie in request.user.like_movies.all():
-#             request.user.like_movies.remove(movie)
-#         else:
-#             request.user.like_movies.add(movie)
-#     else:
-#         messages.warning(request, '로그인이 필요한 기능입니다.')
-#     return redirect('movies:detail', movie_pk)
 
 def update_score(request, rating_pk):
     rating = get_object_or_404(Rating, pk=rating_pk)
