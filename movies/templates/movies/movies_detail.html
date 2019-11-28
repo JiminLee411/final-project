@@ -52,9 +52,12 @@
             개봉일자 : {{ movie.release_date }}&nbsp;&nbsp;&nbsp;&nbsp;
           </h6><br><br>
           <p>{{ movie.overview }}</p>
+          <br>
           <a href='https://www.youtube.com/results?search_query={{movie.title}} +예고편'>
             <div class="favorite-box d-inline" style="color: red; font-family:'Font Awesome 5 Pro';">예고편</div>
           </a>
+
+          {% if user.is_authenticated %}
           <div class="favorite-box d-inline" id="like-btn" data-id="{{movie.id}}">
             {% if user in movie.like_users.all %}
             <i class="fas fa-check-circle animated"> 내가 찜한 영화</i>
@@ -62,6 +65,7 @@
             <i class="far fa-check-circle animated"> 내가 찜한 영화</i>
             {% endif %}
           </div>
+          {% endif %}
           <hr>
       </th><br>
       <br><br><br>

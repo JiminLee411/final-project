@@ -27,8 +27,6 @@ SECRET_KEY = config('SECRET_KEY')
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = 'ulko8(1j#h%zeq94!v6l!-90_d*hmz2k4$1ptqr8x!#l&+h*_q'
-# SECRET_KEY = '289ef966efc661f9b5c3a9943f43a88e'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = True

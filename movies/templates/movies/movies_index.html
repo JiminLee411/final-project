@@ -32,6 +32,7 @@
         </section>
     </div>
 {% if user.is_authenticated %}
+{% if favorite_movies %}
 <i class="fas fa-video fa-2x" style="color: #fff; margin-bottom: 0.7rem;"></i>
 <h1>내가 찜한 영화들</h1>
 <div class="swiper-container">
@@ -50,9 +51,10 @@
     <!-- Add Arrows -->
     <div class="swiper-button-next"></div>
     <div class="swiper-button-prev"></div>
-
 </div>
 <br><br><br>
+{% endif %}
+{% if will_likes %}
 <i class="fas fa-video fa-2x" style="color: #fff; margin-bottom: 0.7rem;"></i>
 <h1>{{request.user}}님의 취향저격 베스트 영화</h1>
 <div class="swiper-container">
@@ -71,9 +73,9 @@
     <!-- Add Arrows -->
     <div class="swiper-button-next"></div>
     <div class="swiper-button-prev"></div>
-
 </div>
 <br><br><br>
+{% endif %}
 {% endif %}
 <i class="fas fa-video fa-2x" style="color: #fff; margin-bottom: 0.7rem;"></i>
 <h1>MovieBuddy 인기 영화</h1>
@@ -93,9 +95,7 @@
     <!-- Add Arrows -->
     <div class="swiper-button-next"></div>
     <div class="swiper-button-prev"></div>
-
 </div>
-
 <br><br><br>
 <i class="fas fa-video fa-2x" style="color: #fff; margin-bottom: 0.7rem;"></i>
 <h1>MovieBuddy 평점순 영화</h1>
@@ -117,10 +117,8 @@
     <!-- Add Arrows -->
     <div class="swiper-button-next"></div>
     <div class="swiper-button-prev"></div>
-
 </div>
 {% endif %}
-
 <br><br><br>
 
 {% endblock %}
