@@ -1,17 +1,13 @@
-{% extends 'accounts/base.html' %}
+{% extends 'accounts/base.html'%}
 {% load bootstrap4 %}
-{% load static %}
-
-{% block css %}
-{% endblock %}
 
 {% block app %}
-
-{% endblock %}
-{% block script %}
 <form action="" method="POST">
-    {% csrf_token %}
-    {{ rating_form }}
-    <input type="submit" value="작성">
+  {% csrf_token %}
+  {% bootstrap_form rating_form %}
+  <!-- <button type="submit">확인</button> -->
+  <div class="d-flex justify-content-end">
+    <input type="submit" value="작성하기" class="btn btn-dark" />
+  </div>
 </form>
 {% endblock %}
