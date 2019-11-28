@@ -109,3 +109,11 @@ def follow(request, user_pk):
         else:
             request.user.followers.add(user)
     return redirect('accounts:detail', user_pk)
+
+def following(request, user_pk):
+    user = get_object_or_404(get_user_model(), pk=user_pk)
+    followings = user.followers.all()
+    context = {
+        'followings': followings
+    }
+    return render(request, 'accounts/following.html', context)
