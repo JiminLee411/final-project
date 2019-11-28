@@ -27,12 +27,9 @@
             <a class="dropdown-item" href="{% url 'accounts:delete' user.pk %}">회원탈퇴</a>
           </div>
         </li>
-        <a href="{% url 'movies:myfavorite' %}">
-          <div style="color:white;">
-            <p>내가 찜한 영화</p>
-          </div>        
-        </a>
-
+          <li class="nav-item">
+                  <a class="nav-link" href="{% url 'movies:myfavorite' %}" tabindex="-1">내가 찜한 영화</a>       
+            </li>
 
         <!-- 로그인이 되어 있지 않다면, -->
         {% else %}
@@ -45,10 +42,17 @@
       {% endif %}
     </ul>
 
-    <form action="{% url 'movies:movies_index' %}" class="form-inline my-2 my-lg-0">
+    <form action="{% url 'movies:movies_index' %}" class="form-inline my-2 my-lg-0"">
       <input class="form-control mr-sm-2" type="text" name="keyword" placeholder="영화 제목 검색" aria-label="Search">
       <button class="btn btn-outline-ligth my-2 my-sm-0" type="submit">Search</button>
     </form>
+    <li id="spin-container">
+        <video controls autoplay="autoplay" style="display: none;">
+        </video>
+      </li>
+    <div id="ground"></div>
+    <div id="music-container" style="height: 30;"></div>
+    &nbsp;
   </div>
 
 </nav>

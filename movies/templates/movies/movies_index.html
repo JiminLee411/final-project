@@ -12,8 +12,25 @@
 {% empty %}
 <h2 style="text-align: center;">등록된 영화가 없습니다.</h2>
 {% endfor %}
-
+<div style="padding-top: 4rem; padding-bottom: 5rem;">
+        <section class="section" style="padding-bottom: 10rem;">
+            <div class="container has-text-centered">
+                <i class="fas fa-video fa-2x" style="color: #fff; margin-bottom: 0.7rem;"></i>
+                <h1>장르별 영화</h1>
+            </div>
+            {% include 'movies/_genre-cards.html' %}
+        </section>
+    </div>
 {% else %}
+<div>
+        <section class="section" style="padding-bottom: 3rem;">
+            <div class="container has-text-centered">
+                <i class="fas fa-video fa-2x" style="color: #fff; margin-bottom: 0.7rem;"></i>
+                <h1>장르별 영화</h1>
+            </div>
+            {% include 'movies/_genre-cards.html' %}
+        </section>
+    </div>
 {% if user.is_authenticated %}
 <i class="fas fa-video fa-2x" style="color: #fff; margin-bottom: 0.7rem;"></i>
 <h1>내가 찜한 영화들</h1>
@@ -23,7 +40,7 @@
         <div class="swiper-slide">
             <a href="{% url 'movies:detail' favorite_movie.pk %}">
                 <img src="https://image.tmdb.org/t/p/w500/{{ favorite_movie.poster_path }}"
-                    alt="{{ favorite_movie.title }}" style="width:270px;">
+                    alt="{{ favorite_movie.title }}" style="width:280px;">
             </a>
         </div>
         {% endfor %}
@@ -104,23 +121,7 @@
 </div>
 {% endif %}
 
-<div style="padding-top: 4rem; padding-bottom: 5rem;">
-    <section class="section" style="padding-bottom: 10rem;">
-        <div class="container has-text-centered">
-            <i class="fas fa-video fa-2x" style="color: #fff; margin-bottom: 0.7rem;"></i>
-            <h1 style="margin-bottom: 1.5rem;">장르별 영화</h1>
-        </div>
-        {% include 'movies/_genre-cards.html' %}
-    </section>
-</div>
-<div id="spin-container">
-    <video controls autoplay="autoplay" style="display: none;">
-    </video>
-</div>
-<div id="ground"></div>
-
-<div id="music-container"></div>
-<br><br><br><br>
+<br><br><br>
 
 {% endblock %}
 
