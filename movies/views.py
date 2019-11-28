@@ -18,6 +18,7 @@ from django.contrib.auth import get_user_model
 # Create your views here.
 def movies_index(request):
     movies = Movie.objects.exclude(poster_path=0)
+    # movies = request.user.like_movies.all()
     movies_popular = Movie.objects.order_by('id')[0:20]
     movies_vote = Movie.objects.order_by('-vote_average')[0:20]
     genres = Genre.objects.all()
