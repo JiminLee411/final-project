@@ -32,7 +32,8 @@ def movies_index(request):
             for rate in ratings:
                 recommends.append(rate.movie)
             for favorite in favorite_movies:
-                recommends.append(favorite)
+                if not favorite in recommends:
+                    recommends.append(favorite)
             if len(recommends) < 4: cnt = len(recommends)
             will_likes = random.sample(recommends, cnt)
 
@@ -165,14 +166,14 @@ def rating_update(request, movie_pk, rating_pk):
         return redirect('movies:detail', movie_pk)
 
     if request.method == 'POST':
-            rating_form = RatingForm(request.POST, instance=rating)
-            if rating_form.is_valid():
-                rating.save()
-                return redirect('movies:detail', movie_pk)
+        rating_form = RatingForm(request.POST, instance=rating)
+        if rating_form.is_valid():
+            rating_form.save()
+            return redirect('movies:detail', movie_pk)
     else:
         rating_form = RatingForm(instance=rating)
     context = {
-        'rating_form':rating_form
+        'rating_form':rating_form,
     }
     return render(request, 'movies/form.html', context)
 
