@@ -23,7 +23,7 @@ def movies_index(request):
     genres = Genre.objects.all()
     favorite_movies = ''
     recommends = will_likes = []
-    cnt = 12
+    cnt = 4
     if request.user.is_authenticated:
         people = request.user.followers.all()
         favorite_movies = request.user.like_movies.all()
@@ -33,7 +33,7 @@ def movies_index(request):
                 recommends.append(rate.movie)
             for favorite in favorite_movies:
                 recommends.append(favorite)
-            if len(recommends) < 12: cnt = len(recommends)
+            if len(recommends) < 4: cnt = len(recommends)
             will_likes = random.sample(recommends, cnt)
 
     keyword = request.GET.get('keyword', '')
