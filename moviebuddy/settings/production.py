@@ -6,5 +6,6 @@ ALLOWED_HOSTS = [
     # 배포된 url
 ]
 
-import django_heroku
-django_heroku.settings(locals())
+# heroku를 위한 설정
+# import django_heroku
+# django_heroku.settings(locals())
