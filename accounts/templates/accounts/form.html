@@ -2,11 +2,13 @@
 {% load bootstrap4 %}
 
 {% block app %}
+
 <form action="" method="POST">
   {% csrf_token %}
-  {% bootstrap_form form %}
+  {% bootstrap_form rating_form %}
   {% buttons %}
-  <button type="submit" class="btn btn-primary">submit</button>
+  <button type="submit" class="btn btn-primary">수정하기</button>
   {% endbuttons %}
 </form>
+
 {% endblock %}
