@@ -1,0 +1,16 @@
+{% extends 'accounts/base.html' %}
+{% load humanize %}
+{% load static %}
+{% load gravatar %}
+{% block app %}
+<h1 class="text-center">
+  {{ host.username }}의 팔로워 목록
+  </h1>
+<div class="jumbotron-fluid text-center mb-2 text-white bg-dark">
+    <div class="container">
+        {% for follower in followers %}
+            <a href="{% url 'accounts:detail' follower.pk %}"><h1>{{ follower }}</h1></a><br>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
