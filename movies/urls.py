@@ -14,7 +14,7 @@ urlpatterns = [
     path('myfavorite/', views.myfavorite, name='myfavorite'),
     path('genres/', views.genres_list, name='genres_list'),
     path('actors/', views.actors_list),
-    path('<int:movie_pk>/rating/<int:rating_pk>/', views.rating_update_and_delete),
+    # path('<int:movie_pk>/rating/<int:rating_pk>/', views.rating_update_and_delete),
     path('<int:movie_pk>/rating/', views.rating_create),
     # path('<int:movie_pk>/', views.movie_detail),
     path('api/genres/', views.genres_list, name="genres_list"),

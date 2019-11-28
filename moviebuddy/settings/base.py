@@ -13,17 +13,22 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+BASE_DIR = os.path.dirname(
+    os.path.dirname(
+        os.path.dirname(
+            os.path.abspath(__file__)
+        )
+    )
+)
 
-
+from decouple import config
+SECRET_KEY = config('SECRET_KEY')
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # SECRET_KEY = 'ulko8(1j#h%zeq94!v6l!-90_d*hmz2k4$1ptqr8x!#l&+h*_q'
 # SECRET_KEY = '289ef966efc661f9b5c3a9943f43a88e'
-from decouple import config
-SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = True
@@ -131,5 +136,4 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'moviebuddy', 'assets')
 ]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
 AUTH_USER_MODEL = 'accounts.User'
