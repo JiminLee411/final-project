@@ -17,9 +17,9 @@
     <div class="container">
         <br>
         <p class="lead">팔로잉 : 
-        <a href="">{{ user_profile.followers.all.count }}</a></p><br>
+        <a href="{% url 'accounts:following' user_profile.pk %}">{{ user_profile.followers.all.count }}</a></p><br>
         <p class="lead">팔로워 : 
-        <a href="">{{ user_profile.followings.all.count }}</a></p>
+        <a href="{% url 'accounts:follower' user_profile.pk %}">{{ user_profile.followings.all.count }}</a></p>
         <hr class="border-white">
         <br>
         

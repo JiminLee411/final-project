@@ -111,9 +111,19 @@ def follow(request, user_pk):
     return redirect('accounts:detail', user_pk)
 
 def following(request, user_pk):
-    user = get_object_or_404(get_user_model(), pk=user_pk)
-    followings = user.followers.all()
+    host = get_object_or_404(get_user_model(), pk=user_pk)
+    followings = host.followers.all()
     context = {
-        'followings': followings
+        'followings': followings,
+        'host' : host,
     }
     return render(request, 'accounts/following.html', context)
+
+def follower(request, user_pk):
+    host = get_object_or_404(get_user_model(), pk=user_pk)
+    followers = host.followings.all()
+    context = {
+        'followers': followers,
+        'host' : host,
+    }
+    return render(request, 'accounts/follower.html', context)
